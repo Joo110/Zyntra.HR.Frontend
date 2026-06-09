@@ -7,15 +7,16 @@ import {
 } from "../types/auth.types";
 import { validateEmail, validatePassword, getPasswordStrength, REGEX } from "../schemas/loginSchema";
 import { loginService, forgotPasswordService } from "../services/authentication.service";
-
+import { useNavigate } from "react-router-dom";
 // ─── Hook ─────────────────────────────────────────────────────────────────────
 export function useLoginForm() {
   const [values, setValues] = useState<LoginFormValues>({
     email: "",
     password: "",
     remember: false,
+    
   });
-
+const navigate = useNavigate();
   const [errors, setErrors] = useState<LoginFormErrors>({
     email: "",
     password: "",
@@ -110,8 +111,12 @@ export function useLoginForm() {
         password: values.password,
       });
 
-      console.log("Login success:", response);
-      // TODO: save token, redirect
+console.log("Login success:", response);
+
+// مثال: لو عندك token
+// localStorage.setItem("token", response.token);
+
+navigate("/dashboard");      // TODO: save token, redirect
     } catch (err: any) {
       setApiError(err.message || "Something went wrong.");
     } finally {

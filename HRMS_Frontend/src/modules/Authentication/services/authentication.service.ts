@@ -13,12 +13,22 @@ export async function loginService(
     }),
   });
 
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || "Login failed. Please try again.");
+  const text = await response.text(); // 👈 أهم خطوة
+
+  let data: any = {};
+  if (text) {
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      data = {};
+    }
   }
 
-  return response.json();
+  if (!response.ok) {
+    throw new Error(data?.message || "Login failed. Please try again.");
+  }
+
+  return data;
 }
 
 // ─── Forgot Password ──────────────────────────────────────────────────────────
