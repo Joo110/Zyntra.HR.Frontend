@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   LoginFormValues,
   LoginFormErrors,
@@ -99,6 +100,7 @@ export function useLoginForm() {
 
     const emailError = validateEmail(values.email);
     const passwordError = validatePassword(values.password);
+     const navigate = useNavigate();
     setErrors({ email: emailError, password: passwordError });
 
     if (emailError || passwordError) return;
@@ -111,7 +113,7 @@ export function useLoginForm() {
       });
 
       console.log("Login success:", response);
-      // TODO: save token, redirect
+      navigate("/admin");
     } catch (err: any) {
       setApiError(err.message || "Something went wrong.");
     } finally {
