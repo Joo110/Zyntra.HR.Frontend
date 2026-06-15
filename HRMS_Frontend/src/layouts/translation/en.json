@@ -1,0 +1,104 @@
+{
+  "pages": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "departments": "Departments",
+    "attendance": "Attendance",
+    "leaveManagement": "Leave Management",
+    "payroll": "Payroll",
+    "recruitment": "Recruitment",
+    "performance": "Performance",
+    "selfService": "Self Service",
+    "finance": "Finance",
+    "reports": "Reports",
+    "branches": "Branches",
+    "rolesPermissions": "Roles & Permissions"
+  },
+  "dashboard": {
+    "header": {
+      "title": "Hi, Sir 👋",
+      "subtitle": "Welcome back — here's what's happening today.",
+      "filter": "Last 7 Days",
+      "export": "Export Report"
+    },
+
+    "stats": {
+      "totalEmployees": "Total Employees",
+      "presentToday": "Present Today",
+      "onLeave": "On Leave",
+      "monthlyPayroll": "Monthly Payroll",
+      "vsLastMonth": "vs last month"
+    },
+
+    "charts": {
+      "attendance": {
+        "title": "Attendance Trends",
+        "subtitle": "Monthly attendance overview",
+        "present": "Present",
+        "leave": "Leave",
+        "absent": "Absent"
+      },
+      "department": {
+        "title": "Department Distribution",
+        "subtitle": "Employees by department"
+      },
+      "payroll": {
+        "title": "Payroll Trends",
+        "subtitle": "Monthly payroll expenditure"
+      }
+    },
+
+    "leaveRequests": {
+      "title": "Leave Requests",
+      "viewAll": "View All"
+    },
+
+    "activities": {
+      "title": "Recent Activities",
+      "viewAll": "View All"
+    },
+
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
+  },
+  "sidebar": {
+    "mainMenu": "Main Menu",
+    "brand": {
+      "name": "Arabian Meem",
+      "subtitle": "الميم العربية"
+    },
+    "user": {
+      "name": "Mohamed Morsy",
+      "role": "Admin"
+    },
+
+    "items": {
+      "dashboard": "Dashboard",
+      "employees": "Employees",
+      "departments": "Departments",
+      "attendance": "Attendance",
+      "leaveManagement": "Leave Management",
+      "payroll": "Payroll",
+      "recruitment": "Recruitment",
+      "performance": "Performance",
+      "selfService": "Self Service",
+      "finance": "Finance",
+      "reports": "Reports",
+      "branches": "Branches",
+      "rolesPermissions": "Roles & Permissions"
+    }
+  },
+   "topbar": {
+    "search": {
+      "placeholder": "Search..."
+    },
+    "date": "Jun 10, 2026",
+    "user": {
+      "name": "Mohamed Morsy",
+      "role": "Admin"
+    }
+  }
+}

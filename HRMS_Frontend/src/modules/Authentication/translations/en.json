@@ -1,0 +1,177 @@
+{
+    "login": {
+    "title": "Login to your account",
+    "accessibility": {
+      "hidePassword": "Hide password",
+      "showPassword": "Show password"
+    },
+    "form": {
+      "email": {
+        "label": "Email Address",
+        "placeholder": "Enter your registered email",
+        "required": "*"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password",
+        "required": "*",
+        "strength": "Strength"
+      },
+      "rememberMe": "Remember Me",
+      "forgotPassword": "Forgot Password?",
+      "submit": {
+        "login": "Login",
+        "loading": "Logging in..."
+      }
+    },
+    "divider": "Or log in with",
+    "social": {
+      "google": "Google",
+      "apple": "Apple"
+    },
+    "footer": {
+      "noAccount": "Don't have account?",
+      "createAccount": "Create Account"
+    },
+    "errors": {
+      "enterEmailFirst": "Enter your email first.",
+      "invalidEmail": "Please enter a valid email.",
+      "generic": "Something went wrong.",
+      "apiErrorPrefix": "⚠️"
+    },
+    "success": {
+      "resetLinkSent": "Reset link sent to: {{email}}"
+    },
+    "logs": {
+      "success": "Login success:"
+    }
+  },
+  
+  
+  "validation": {
+    "email": {
+      "required": "Email is required.",
+      "invalid": "Please enter a valid email address (e.g. name@example.com)."
+    },
+    "password": {
+      "required": "Password is required.",
+      "minLength": "Password must be at least 8 characters.",
+      "hasUpper": "Password must contain at least one uppercase letter (A-Z).",
+      "hasLower": "Password must contain at least one lowercase letter (a-z).",
+      "hasNumber": "Password must contain at least one number (0-9).",
+      "hasSpecial": "Password must contain at least one special character (!@#$%...).",
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong 💪"
+      }
+    },
+    "name": {
+      "required": "Full name is required.",
+      "min": "Name must be at least 3 characters.",
+      "max": "Name must be less than 50 characters.",
+      "pattern": "Name can only contain letters and spaces."
+    },
+    "confirmPassword": {
+      "required": "Please confirm your password.",
+      "match": "Passwords do not match."
+    }
+  },
+  "register": {
+  "title": "Create your account",
+  "accessibility": {
+    "hidePassword": "Hide password",
+    "showPassword": "Show password"
+  },
+  "form": {
+    "name": {
+      "label": "Full Name",
+      "placeholder": "Enter your full name"
+    },
+    "email": {
+      "label": "Email Address",
+      "placeholder": "Enter your email address"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Create a strong password",
+      "strength": "Strength"
+    },
+    "confirmPassword": {
+      "label": "Confirm Password",
+      "placeholder": "Re-enter your password"
+    },
+    "submit": {
+      "register": "Create Account",
+      "loading": "Creating account..."
+    }
+  },
+  "divider": "Or sign up with",
+  "social": {
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "footer": {
+    "hasAccount": "Already have an account?",
+    "login": "Login"
+  },
+  "errors": { "generic": "Something went wrong." },
+  "logs": { "success": "Register success:" }
+},
+"forgotPassword": {
+    "title": "Reset your password",
+    "description": "Enter your email and we will send a password reset link",
+
+    "form": {
+      "email": {
+        "label": "Registered Email",
+        "placeholder": "Enter your registered email"
+      },
+
+      "submit": {
+        "default": "Send Reset Link",
+        "loading": "Sending..."
+      },
+
+      "back": "Back"
+    },
+
+    "success": {
+      "resetLinkSent": "Reset link sent to: {{email}}"
+    },
+
+    "errors": {
+      "generic": "Something went wrong."
+    }
+  },
+
+  "resetPassword": {
+    "title": "Create New Password",
+    "description": "Enter your new password below",
+
+    "form": {
+      "password": {
+        "label": "New Password",
+        "placeholder": "Enter your new password"
+      },
+
+      "confirmPassword": {
+        "label": "Confirm New Password",
+        "placeholder": "Confirm your new password"
+      },
+
+      "submit": {
+        "default": "Submit",
+        "loading": "Updating..."
+      },
+
+      "strength": "Strength"
+    },
+
+    "accessibility": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "employee": {
+    "addNew": "إضافة موظف جديد",
+    "addDescription": "أدخل بيانات الموظف لإضافته إلى النظام",
+    "add": "إضافة موظف",
+    "adding": "جاري الإضافة...",
+    "cancel": "إلغاء",
+    "editProfile": "تعديل بيانات الموظف",
+    "updateProfile": "تحديث بيانات {{name}}",
+    "saveChanges": "حفظ التعديلات",
+    "saving": "جارٍ الحفظ...",
+    "genericError": "حدث خطأ ما، يرجى المحاولة مرة أخرى.",
+
+    "sections": {
+      "personal": "البيانات الشخصية",
+      "contact": "بيانات التواصل",
+      "employment": "بيانات التوظيف",
+      "emergency": "جهة الاتصال في حالات الطوارئ"
+    },
+
+    "fields": {
+      "firstName": "الاسم الأول",
+      "middleName": "الاسم الأوسط",
+      "lastName": "اسم العائلة",
+      "dateOfBirth": "تاريخ الميلاد",
+      "gender": "النوع",
+      "nationality": "الجنسية",
+      "nationalId": "الرقم القومي",
+      "maritalStatus": "الحالة الاجتماعية",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "mobile": "الموبايل",
+      "city": "المدينة",
+      "contactName": "اسم جهة الاتصال",
+      "relationship": "صلة القرابة",
+      "country": "الدولة",
+      "address": "العنوان",
+      "department": "القسم",
+      "position": "المسمى الوظيفي",
+      "branch": "الفرع",
+      "contractType": "نوع العقد",
+      "hireDate": "تاريخ التعيين",
+      "salary": "الراتب الأساسي",
+      "manager": "المدير المباشر"
+    }
+  },
+
+  "employeeProfile": {
+    "back": "العودة إلى الموظفين",
+    "editProfile": "تعديل الملف الشخصي",
+
+    "tabs": {
+      "personal": "البيانات الشخصية",
+      "employment": "الوظيفة",
+      "documents": "المستندات",
+      "attendance": "الحضور",
+      "payroll": "الرواتب",
+      "performance": "الأداء"
+    },
+
+    "cards": {
+      "basicInfo": "المعلومات الأساسية",
+      "contactInfo": "بيانات التواصل",
+      "emergencyContact": "جهة الاتصال للطوارئ",
+      "employmentDetails": "بيانات التوظيف"
+    },
+
+    "fields": {
+      "fullName": "الاسم الكامل",
+      "dateOfBirth": "تاريخ الميلاد",
+      "gender": "النوع",
+      "nationality": "الجنسية",
+      "nationalId": "الرقم القومي",
+      "maritalStatus": "الحالة الاجتماعية",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "mobile": "الموبايل",
+      "city": "المدينة",
+      "country": "الدولة",
+      "address": "العنوان",
+      "name": "الاسم",
+      "relation": "صلة القرابة",
+      "department": "القسم",
+      "position": "الوظيفة",
+      "branch": "الفرع",
+      "hireDate": "تاريخ التعيين",
+      "contractType": "نوع العقد",
+      "manager": "المدير",
+      "salary": "الراتب الأساسي",
+      "status": "الحالة"
+    },
+
+    "underConstruction": "قسم {{section}} قيد الإنشاء."
+  },
+
+  "employeesPage": {
+    "title": "الموظفون",
+    "description": "إدارة الموظفين",
+    "totalEmployees": "{{count}} موظف",
+
+    "addEmployee": "إضافة موظف",
+    "searchPlaceholder": "ابحث بالاسم أو البريد الإلكتروني أو رقم الموظف...",
+
+    "filters": {
+      "allStatuses": "كل الحالات",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "onLeave": "في إجازة"
+    },
+
+    "status": {
+      "all": "الكل",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "onLeave": "في إجازة"
+    },
+
+    "deleteConfirmation": "هل أنت متأكد من حذف هذا الموظف؟",
+
+    "table": {
+      "employee": "الموظف",
+      "department": "القسم",
+      "position": "الوظيفة",
+      "branch": "الفرع",
+      "hireDate": "تاريخ التعيين",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+
+    "loading": "جارٍ تحميل الموظفين...",
+    "empty": "لا يوجد موظفون.",
+
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+
+    "pagination": {
+      "showing": "عرض {{shown}} من أصل {{total}} موظف"
+    }
+  },
+
+  "validation": {
+    "firstName": {
+      "required": "الاسم الأول مطلوب.",
+      "min": "يجب أن يكون على الأقل حرفين."
+    }
+  },
+
+  "api": {
+    "error": {
+      "requestFailed": "فشل الطلب: {{status}} {{statusText}}",
+      "unknown": "حدث خطأ غير معروف",
+      "noContent": "لا يوجد محتوى"
+    }
+  },
+
+  "enums": {
+    "gender": {
+      "male": "ذكر",
+      "female": "أنثى"
+    },
+    "maritalStatus": {
+      "single": "أعزب",
+      "married": "متزوج",
+      "divorced": "مطلق",
+      "widowed": "أرمل"
+    },
+    "contractType": {
+      "fullTime": "دوام كامل",
+      "partTime": "دوام جزئي",
+      "contract": "تعاقد"
+    },
+    "employeeStatus": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "onLeave": "في إجازة"
+    }
+  }
+}

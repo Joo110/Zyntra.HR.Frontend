@@ -1,0 +1,181 @@
+{
+  "employee": {
+    "addNew": "Add New Employee",
+    "addDescription": "Fill in the employee details to add them to the system",
+    "add": "Add Employee",
+    "adding": "Adding...",
+    "cancel": "Cancel",
+    "editProfile": "Edit Employee Profile",
+    "updateProfile": "Update {{name}}'s profile",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "genericError": "Something went wrong. Please try again.",
+
+    "sections": {
+      "personal": "Personal Information",
+      "contact": "Contact Information",
+      "employment": "Employment Details",
+      "emergency": "Emergency Contact"
+    },
+
+    "fields": {
+      "firstName": "First Name",
+      "middleName": "Middle Name",
+      "lastName": "Last Name",
+      "dateOfBirth": "Date of Birth",
+      "gender": "Gender",
+      "nationality": "Nationality",
+      "nationalId": "National ID",
+      "maritalStatus": "Marital Status",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "mobile": "Mobile",
+      "city": "City",
+      "country": "Country",
+      "address": "Address",
+      "department": "Department",
+      "position": "Job Title / Position",
+      "branch": "Branch",
+      "contractType": "Contract Type",
+      "hireDate": "Hire Date",
+      "salary": "Basic Salary",
+      "manager": "Manager"
+    }
+  },
+
+  "employeeProfile": {
+    "back": "Back to Employees",
+    "editProfile": "Edit profile",
+
+    "tabs": {
+      "personal": "Personal info",
+      "employment": "Employment",
+      "documents": "Documents",
+      "attendance": "Attendance",
+      "payroll": "Payroll",
+      "performance": "Performance"
+    },
+
+    "cards": {
+      "basicInfo": "Basic Information",
+      "contactInfo": "Contact Information",
+      "emergencyContact": "Emergency Contact",
+      "employmentDetails": "Employment Details"
+    },
+
+    "fields": {
+      "fullName": "Full Name",
+      "dateOfBirth": "Date of Birth",
+      "gender": "Gender",
+      "nationality": "Nationality",
+      "nationalId": "National ID",
+      "maritalStatus": "Marital Status",
+      "email": "Email",
+      "phone": "Phone",
+      "mobile": "Mobile",
+      "city": "City",
+      "country": "Country",
+      "address": "Address",
+      "name": "Name",
+      "relation": "Relation",
+      "contactName": "Contact Name",
+      "relationship": "Relationship",
+      "department": "Department",
+      "position": "Position",
+      "branch": "Branch",
+      "hireDate": "Hire Date",
+      "contractType": "Contract Type",
+      "manager": "Manager",
+      "salary": "Basic Salary",
+      "status": "Status"
+    },
+
+    "underConstruction": "{{section}} section is under construction."
+  },
+
+  "employeesPage": {
+    "title": "Employees",
+    "description": "Manage your employees",
+    "totalEmployees": "{{count}} employees total",
+
+    "addEmployee": "Add Employee",
+    "searchPlaceholder": "Search by name, email, or ID...",
+
+    "filters": {
+      "allStatuses": "All Statuses",
+      "active": "Active",
+      "inactive": "Inactive",
+      "onLeave": "On Leave"
+    },
+
+    "status": {
+      "all": "All",
+      "active": "Active",
+      "inactive": "Inactive",
+      "onLeave": "On Leave"
+    },
+
+    "deleteConfirmation": "Are you sure you want to delete this employee?",
+
+    "table": {
+      "employee": "Employee",
+      "department": "Department",
+      "position": "Position",
+      "branch": "Branch",
+      "hireDate": "Hire Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+
+    "loading": "Loading employees...",
+    "empty": "No employees found.",
+
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+
+    "pagination": {
+      "showing": "Showing {{shown}} of {{total}} employees"
+    }
+  },
+
+  "validation": {
+    "firstName": {
+      "required": "First name is required.",
+      "min": "Must be at least 2 characters."
+    }
+  },
+
+  "api": {
+    "error": {
+      "requestFailed": "Request failed: {{status}} {{statusText}}",
+      "unknown": "Unknown error occurred",
+      "noContent": "No content"
+    }
+  },
+
+  "enums": {
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "maritalStatus": {
+      "single": "Single",
+      "married": "Married",
+      "divorced": "Divorced",
+      "widowed": "Widowed"
+    },
+    "contractType": {
+      "fullTime": "Full Time",
+      "partTime": "Part Time",
+      "contract": "Contract"
+    },
+    "employeeStatus": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "onLeave": "On Leave"
+    }
+  }
+}

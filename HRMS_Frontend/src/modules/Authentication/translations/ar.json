@@ -1,0 +1,178 @@
+{
+    "login": {
+    "title": "تسجيل الدخول إلى حسابك",
+    "accessibility": {
+      "hidePassword": "إخفاء كلمة المرور",
+      "showPassword": "إظهار كلمة المرور"
+    },
+    "form": {
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "أدخل بريدك الإلكتروني المسجل",
+        "required": "*"
+      },
+      "password": {
+        "label": "كلمة المرور",
+        "placeholder": "أدخل كلمة المرور",
+        "required": "*",
+        "strength": "قوة كلمة المرور"
+      },
+      "rememberMe": "تذكرني",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "submit": {
+        "login": "تسجيل الدخول",
+        "loading": "جارٍ تسجيل الدخول..."
+      }
+    },
+    "divider": "أو سجل الدخول باستخدام",
+    "social": {
+      "google": "جوجل",
+      "apple": "آبل"
+    },
+    "footer": {
+      "noAccount": "ليس لديك حساب؟",
+      "createAccount": "إنشاء حساب"
+    },
+    "errors": {
+      "apiErrorPrefix": "⚠️",
+      "enterEmailFirst": "أدخل البريد الإلكتروني أولاً.",
+      "invalidEmail": "من فضلك أدخل بريد إلكتروني صحيح.",
+      "generic": "حدث خطأ ما."
+    },
+    "success": {
+      "resetLinkSent": "تم إرسال رابط إعادة التعيين إلى: {{email}}"
+    },
+    "logs": {
+      "success": "نجاح تسجيل الدخول:"
+    }
+  },
+  
+  
+  
+  "validation": {
+    "email": {
+      "required": "البريد الإلكتروني مطلوب.",
+      "invalid": "من فضلك أدخل بريد إلكتروني صحيح (مثال: name@example.com)."
+    },
+    "password": {
+      "required": "كلمة المرور مطلوبة.",
+      "minLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل.",
+      "hasUpper": "يجب أن تحتوي على حرف كبير واحد على الأقل (A-Z).",
+      "hasLower": "يجب أن تحتوي على حرف صغير واحد على الأقل (a-z).",
+      "hasNumber": "يجب أن تحتوي على رقم واحد على الأقل (0-9).",
+      "hasSpecial": "يجب أن تحتوي على رمز خاص واحد على الأقل (!@#$%...).",
+      "strength": {
+        "weak": "ضعيفة",
+        "fair": "مقبولة",
+        "good": "جيدة",
+        "strong": "قوية 💪"
+      }
+    },
+    "name": {
+      "required": "الاسم الكامل مطلوب.",
+      "min": "يجب أن يكون الاسم 3 أحرف على الأقل.",
+      "max": "يجب أن يكون الاسم أقل من 50 حرفًا.",
+      "pattern": "الاسم يمكن أن يحتوي على أحرف ومسافات فقط."
+    },
+    "confirmPassword": {
+      "required": "من فضلك أكد كلمة المرور.",
+      "match": "كلمتا المرور غير متطابقتين."
+    }
+  },
+  "register": {
+  "title": "إنشاء حساب جديد",
+  "accessibility": {
+    "hidePassword": "إخفاء كلمة المرور",
+    "showPassword": "إظهار كلمة المرور"
+  },
+  "form": {
+    "name": {
+      "label": "الاسم الكامل",
+      "placeholder": "أدخل اسمك الكامل"
+    },
+    "email": {
+      "label": "البريد الإلكتروني",
+      "placeholder": "أدخل بريدك الإلكتروني"
+    },
+    "password": {
+      "label": "كلمة المرور",
+      "placeholder": "أنشئ كلمة مرور قوية",
+      "strength": "قوة كلمة المرور"
+    },
+    "confirmPassword": {
+      "label": "تأكيد كلمة المرور",
+      "placeholder": "أعد إدخال كلمة المرور"
+    },
+    "submit": {
+      "register": "إنشاء حساب",
+      "loading": "جارٍ إنشاء الحساب..."
+    }
+  },
+  "divider": "أو سجل باستخدام",
+  "social": {
+    "google": "جوجل",
+    "apple": "آبل"
+  },
+  "footer": {
+    "hasAccount": "لديك حساب بالفعل؟",
+    "login": "تسجيل الدخول"
+  },
+  "errors": { "generic": "حدث خطأ ما." },
+  "logs": { "success": "نجاح التسجيل:" }
+},
+"forgotPassword": {
+    "title": "إعادة تعيين كلمة المرور",
+    "description": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور",
+
+    "form": {
+      "email": {
+        "label": "البريد الإلكتروني المسجل",
+        "placeholder": "أدخل بريدك الإلكتروني المسجل"
+      },
+
+      "submit": {
+        "default": "إرسال رابط إعادة التعيين",
+        "loading": "جاري الإرسال..."
+      },
+
+      "back": "رجوع"
+    },
+
+    "success": {
+      "resetLinkSent": "تم إرسال رابط إعادة التعيين إلى: {{email}}"
+    },
+
+    "errors": {
+      "generic": "حدث خطأ ما."
+    }
+  },
+
+  "resetPassword": {
+    "title": "إنشاء كلمة مرور جديدة",
+    "description": "أدخل كلمة المرور الجديدة الخاصة بك",
+
+    "form": {
+      "password": {
+        "label": "كلمة المرور الجديدة",
+        "placeholder": "أدخل كلمة المرور الجديدة"
+      },
+
+      "confirmPassword": {
+        "label": "تأكيد كلمة المرور الجديدة",
+        "placeholder": "أكد كلمة المرور الجديدة"
+      },
+
+      "submit": {
+        "default": "تأكيد",
+        "loading": "جاري التحديث..."
+      },
+
+      "strength": "القوة"
+    },
+
+    "accessibility": {
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور"
+    }
+  }
+}

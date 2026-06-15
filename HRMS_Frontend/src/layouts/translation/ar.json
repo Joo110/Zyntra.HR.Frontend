@@ -1,0 +1,104 @@
+{
+  "pages": {
+    "dashboard": "لوحة التحكم",
+    "employees": "الموظفين",
+    "departments": "الأقسام",
+    "attendance": "الحضور",
+    "leaveManagement": "إدارة الإجازات",
+    "payroll": "المرتبات",
+    "recruitment": "التوظيف",
+    "performance": "الأداء",
+    "selfService": "الخدمة الذاتية",
+    "finance": "المالية",
+    "reports": "التقارير",
+    "branches": "الفروع",
+    "rolesPermissions": "الصلاحيات والأدوار"
+  },
+  "dashboard": {
+    "header": {
+      "title": "أهلاً يا باشا 👋",
+      "subtitle": "مرحبًا بعودتك — هذا ما يحدث اليوم.",
+      "filter": "آخر 7 أيام",
+      "export": "تصدير التقرير"
+    },
+
+    "stats": {
+      "totalEmployees": "إجمالي الموظفين",
+      "presentToday": "الحضور اليوم",
+      "onLeave": "في إجازة",
+      "monthlyPayroll": "الرواتب الشهرية",
+      "vsLastMonth": "مقارنة بالشهر الماضي"
+    },
+
+    "charts": {
+      "attendance": {
+        "title": "اتجاهات الحضور",
+        "subtitle": "نظرة عامة على الحضور الشهري",
+        "present": "حاضر",
+        "leave": "إجازة",
+        "absent": "غائب"
+      },
+      "department": {
+        "title": "توزيع الأقسام",
+        "subtitle": "الموظفين حسب القسم"
+      },
+      "payroll": {
+        "title": "اتجاه الرواتب",
+        "subtitle": "مصروفات الرواتب الشهرية"
+      }
+    },
+
+    "leaveRequests": {
+      "title": "طلبات الإجازة",
+      "viewAll": "عرض الكل"
+    },
+
+    "activities": {
+      "title": "آخر النشاطات",
+      "viewAll": "عرض الكل"
+    },
+
+    "status": {
+      "pending": "قيد الانتظار",
+      "approved": "مقبول",
+      "rejected": "مرفوض"
+    }
+  },
+  "sidebar": {
+    "mainMenu": "القائمة الرئيسية",
+    "brand": {
+      "name": "الميم العربية",
+      "subtitle": "Arabian Meem"
+    },
+    "user": {
+      "name": "محمد مرسي",
+      "role": "مدير"
+    },
+
+    "items": {
+      "dashboard": "لوحة التحكم",
+      "employees": "الموظفين",
+      "departments": "الأقسام",
+      "attendance": "الحضور",
+      "leaveManagement": "إدارة الإجازات",
+      "payroll": "الرواتب",
+      "recruitment": "التوظيف",
+      "performance": "الأداء",
+      "selfService": "الخدمة الذاتية",
+      "finance": "المالية",
+      "reports": "التقارير",
+      "branches": "الفروع",
+      "rolesPermissions": "الصلاحيات والأدوار"
+    }
+  },
+  "topbar": {
+    "search": {
+      "placeholder": "بحث..."
+    },
+    "date": "10 يونيو 2026",
+    "user": {
+      "name": "محمد مرسي",
+      "role": "مدير"
+    }
+  }
+}
