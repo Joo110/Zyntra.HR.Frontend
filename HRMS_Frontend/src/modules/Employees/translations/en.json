@@ -10,14 +10,12 @@
     "saveChanges": "Save Changes",
     "saving": "Saving...",
     "genericError": "Something went wrong. Please try again.",
-
     "sections": {
       "personal": "Personal Information",
       "contact": "Contact Information",
       "employment": "Employment Details",
       "emergency": "Emergency Contact"
     },
-
     "fields": {
       "firstName": "First Name",
       "middleName": "Middle Name",
@@ -44,9 +42,10 @@
   },
 
   "employeeProfile": {
-    "back": "Back to Employees",
+    "fallbackName": "Employee",
+    "idLabel": "ID: {{id}}",
+    "back": "Back",
     "editProfile": "Edit profile",
-
     "tabs": {
       "personal": "Personal info",
       "employment": "Employment",
@@ -55,14 +54,12 @@
       "payroll": "Payroll",
       "performance": "Performance"
     },
-
     "cards": {
       "basicInfo": "Basic Information",
       "contactInfo": "Contact Information",
       "emergencyContact": "Emergency Contact",
       "employmentDetails": "Employment Details"
     },
-
     "fields": {
       "fullName": "Full Name",
       "dateOfBirth": "Date of Birth",
@@ -89,7 +86,6 @@
       "salary": "Basic Salary",
       "status": "Status"
     },
-
     "underConstruction": "{{section}} section is under construction."
   },
 
@@ -97,26 +93,21 @@
     "title": "Employees",
     "description": "Manage your employees",
     "totalEmployees": "{{count}} employees total",
-
     "addEmployee": "Add Employee",
     "searchPlaceholder": "Search by name, email, or ID...",
-
     "filters": {
       "allStatuses": "All Statuses",
       "active": "Active",
       "inactive": "Inactive",
       "onLeave": "On Leave"
     },
-
     "status": {
       "all": "All",
       "active": "Active",
       "inactive": "Inactive",
       "onLeave": "On Leave"
     },
-
     "deleteConfirmation": "Are you sure you want to delete this employee?",
-
     "table": {
       "employee": "Employee",
       "department": "Department",
@@ -126,19 +117,90 @@
       "status": "Status",
       "actions": "Actions"
     },
-
     "loading": "Loading employees...",
     "empty": "No employees found.",
-
     "actions": {
       "view": "View",
       "edit": "Edit",
       "delete": "Delete"
     },
-
     "pagination": {
       "showing": "Showing {{shown}} of {{total}} employees"
     }
+  },
+
+  "employmentTab": {
+    "currentEmployment": "Current Employment",
+    "startDate": "Start Date",
+    "contractEndDate": "Contract End Date",
+    "employmentHistory": "Employment History"
+  },
+
+  "payrollTab": {
+    "currentMonthBreakdown": "Current Month Breakdown",
+    "baseSalary": "Base Salary",
+    "allowances": "Allowances",
+    "deductions": "Deductions",
+    "netSalary": "Net Salary",
+    "payslipHistory": "Payslip History",
+    "gross": "Gross",
+    "dedt": "Dedt",
+    "net": "Net",
+    "download": "Download"
+  },
+
+  "performanceTab": {
+    "title": "Performance Overview",
+    "initiateReview": "Initiate New Review",
+    "currentMonthBreakdown": "Current Month Breakdown",
+    "latestReview": "Latest Performance Review",
+    "exceedsExpectations": "Exceeds Expectations",
+    "kpiLabel": "Key Performance Indicators",
+    "kpis": {
+      "codeQuality": "Code Quality",
+      "deliveryOnTime": "Delivery on Time",
+      "teamCollaboration": "Team Collaboration",
+      "innovation": "Innovation"
+    },
+    "trend": {
+      "title": "Performance Trend",
+      "rating": "Rating"
+    },
+    "managerComments": {
+      "title": "Manager Comments",
+      "role": "Engineering Manager",
+      "body": "Ahmed has consistently demonstrated exceptional technical skills and leadership qualities. His contributions to the team's recent projects have been invaluable. He mentors junior developers effectively and maintains high code quality standards. Looking forward to seeing his continued growth in the next quarter."
+    }
+  },
+
+  "qualificationsPage": {
+    "title": "Employee Qualifications",
+    "description": "Track educational qualifications, certifications, and training",
+    "addButton": "+ Add Qualifications",
+    "searchPlaceholder": "Search Qualifications",
+    "filters": {
+      "allTypes": "All Types",
+      "allStatuses": "All Statuses",
+      "allLevels": "All Levels"
+    },
+    "statuses": {
+      "verified": "Verified",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+    "levels": {
+      "bachelor": "Bachelor's",
+      "master": "Master's",
+      "phd": "PhD"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "graduationYear": "Graduation Year",
+    "levelLabel": "Level",
+    "fieldLabel": "Field",
+    "gradeLabel": "Grade"
   },
 
   "validation": {
@@ -154,6 +216,240 @@
       "unknown": "Unknown error occurred",
       "noContent": "No content"
     }
+  },
+
+  "emergencyContact": {
+    "modal": {
+      "title": "Add Emergency Contact",
+      "description": "Add a new emergency contact for an employee",
+      "addButton": "Add Contact"
+    },
+    "sections": {
+      "employeeInfo": "Employee Information",
+      "contactInfo": "Emergency Contact Information"
+    },
+    "fields": {
+      "employeeId": "Employee ID *",
+      "employeeName": "Employee Name *",
+      "primaryPhone": "Primary Phone",
+      "alternatePhone": "Alternate Phone (Optional)",
+      "email": "Email Address",
+      "notes": "Notes (Optional)"
+    },
+    "placeholders": {
+      "employeeId": "e.g. EMP-1024",
+      "employeeName": "e.g. Ahmed Hassan",
+      "selectDepartment": "Select",
+      "contactName": "e.g. Yousef Massoud",
+      "primaryPhone": "e.g. +971 4 123 4567",
+      "alternatePhone": "e.g. +971 4 123 4567",
+      "email": "e.g. contact@email.com",
+      "address": "Villa 42, Al Wasl District, Dubai, UAE",
+      "notes": "Any additional information..."
+    }
+  },
+
+  "qualification": {
+    "modal": {
+      "title": "Add Qualification",
+      "description": "Add a new qualification record for an employee.",
+      "addButton": "Add Qualification"
+    },
+    "sections": {
+      "type": "Qualification Type",
+      "details": "Qualification Details"
+    },
+    "fields": {
+      "employeeId": "Employee ID *",
+      "employeeName": "Employee Name *",
+      "type": "Type *",
+      "title": "Qualification Title *",
+      "institution": "Institution *",
+      "fieldOfStudy": "Field of Study *",
+      "graduationYear": "Graduation Year *",
+      "gpa": "Grade / GPA (Optional)",
+      "verificationStatus": "Verification Status *"
+    },
+    "types": {
+      "degree": "Degree",
+      "certification": "Certification",
+      "training": "Training"
+    },
+    "placeholders": {
+      "selectType": "Select type",
+      "title": "e.g. Bachelor of Computer Science",
+      "institution": "e.g. UAE University",
+      "fieldOfStudy": "e.g. Computer Science",
+      "graduationYear": "e.g. 2012"
+    },
+    "upload": {
+      "dragAndDrop": "Drag and drop your file here",
+      "orBrowse": "or click to browse",
+      "chooseFile": "Choose File",
+      "supportedFormats": "Supported formats: PDF, DOC, DOCX, JPG, PNG (Max 10MB)"
+    }
+  },
+
+  "attendance": {
+    "overview": "Attendance Overview",
+    "status": {
+      "present": "PRESENT",
+      "late": "LATE",
+      "absent": "ABSENT",
+      "onLeave": "ON LEAVE"
+    },
+    "weekDays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
+  },
+
+  "contract": {
+    "modal": {
+      "title": "Edit Contract",
+      "description": "Update contract information for {{name}}"
+    },
+    "sections": {
+      "contractInfo": "Contract Information",
+      "employmentInfo": "Employment Information"
+    },
+    "fields": {
+      "status": "Status",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "duration": "Duration",
+      "salary": "Salary (AED)",
+      "signedDate": "Signed Date",
+      "renewalDate": "Renewal Date"
+    },
+    "types": {
+      "permanent": "Permanent",
+      "temporary": "Temporary",
+      "freelance": "Freelance"
+    },
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "expired": "Expired"
+    },
+    "departments": {
+      "engineering": "Engineering",
+      "it": "IT Technology",
+      "hr": "HR",
+      "finance": "Finance"
+    },
+    "view": {
+      "title": "Contract Details",
+      "editButton": "Edit Contract"
+    }
+  },
+
+  "documents": {
+    "title": "Employee Documents",
+    "uploadButton": "Upload Document",
+    "uploaded": "Uploaded: {{date}}",
+    "expires": "Expires: {{date}}",
+    "noExpiry": "N/A",
+    "actions": {
+      "download": "Download",
+      "preview": "Preview"
+    },
+    "types": {
+      "nationalId": "National ID",
+      "educationalCertificates": "Educational Certificates",
+      "medicalCertificate": "Medical Certificate",
+      "bankDetails": "Bank Details",
+      "employmentContract": "Employment Contract"
+    }
+  },
+
+  "documentUpload": {
+    "modal": {
+      "title": "Upload Document",
+      "description": "Add a new employee document",
+      "uploadButton": "Upload Document"
+    },
+    "sections": {
+      "documentDetails": "Document Details",
+      "uploadFile": "Upload File"
+    },
+    "fields": {
+      "documentType": "Document Type *",
+      "expiryDate": "Expiry Date *",
+      "expiryHint": "This document has an expiry date"
+    },
+    "placeholders": {
+      "expiryDate": "e.g., Mar 2027"
+    },
+    "infoNote": "Ensure all uploaded documents are clear, legible, and contain accurate information. Documents will be verified by the HR team."
+  },
+
+  "documentView": {
+    "modal": {
+      "title": "Employee Document",
+      "description": "{{name}} document details"
+    },
+    "actions": {
+      "delete": "Delete",
+      "edit": "Edit Document"
+    }
+  },
+
+  "emergencyContactsPage": {
+    "title": "Emergency Contacts",
+    "description": "Manage employee emergency contact information",
+    "addButton": "Add Contacts",
+    "searchPlaceholder": "Search Contacts",
+    "altPhone": "Alt: {{number}}",
+    "notesLabel": "Notes:",
+    "filters": {
+      "allRelationships": "All Relationships",
+      "allDepartments": "All Departments"
+    },
+    "relationships": {
+      "spouse": "Spouse",
+      "parent": "Parent",
+      "sibling": "Sibling",
+      "friend": "Friend"
+    }
+  },
+
+  "contractsPage": {
+    "title": "Employee Contracts",
+    "description": "Manage employment contracts and track renewal dates",
+    "exportButton": "Export Report",
+    "searchPlaceholder": "Search Contracts",
+    "filters": {
+      "allTypes": "All Types",
+      "allStatuses": "All Statuses",
+      "allDepartments": "All Departments"
+    },
+    "table": {
+      "contractId": "CONTRACT ID",
+      "employee": "EMPLOYEE",
+      "joinDate": "JOIN DATE"
+    }
+  },
+
+  "documentsPage": {
+    "title": "Employee Documents",
+    "description": "Manage and track all employee documentation",
+    "searchPlaceholder": "Search Documents",
+    "filters": {
+      "allTypes": "All Types"
+    },
+    "table": {
+      "type": "TYPE"
+    }
+  },
+
+  "employeeFormFields": {
+    "salaryLabel": "Basic Salary (AED)"
   },
 
   "enums": {

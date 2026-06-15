@@ -120,7 +120,7 @@ i18n
         recruitment: arRecruitment,
       },
     },
-    lng: "ar",
+    lng: "en",
     fallbackLng: "en",
     interpolation: {
       escapeValue: false,

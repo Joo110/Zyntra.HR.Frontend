@@ -1,5 +1,6 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   EmployeeFormState,
   FormErrors,
@@ -14,8 +15,6 @@ import {
   MaritalStatus,
   ContractType,
 } from "../types/employee";
-
-// ─── Nationalities (static list) ─────────────────────────────────────────────
 
 export const NATIONALITIES = [
   "Afghan","Albanian","Algerian","American","Argentinian","Australian",
@@ -32,14 +31,11 @@ export const NATIONALITIES = [
   "Venezuelan","Vietnamese","Yemeni",
 ];
 
-// ─── Props ────────────────────────────────────────────────────────────────────
-
 interface EmployeeFormFieldsProps {
   data: EmployeeFormState;
   onChange: (field: keyof EmployeeFormState, value: string) => void;
   errors?: FormErrors;
   isEdit?: boolean;
-  // Lookup data loaded from API
   departments?: Department[];
   positions?: Position[];
   branches?: Branch[];
@@ -47,18 +43,10 @@ interface EmployeeFormFieldsProps {
   lookupsLoading?: boolean;
 }
 
-// ─── Reusable field components ────────────────────────────────────────────────
-
 function FieldWrapper({
-  label,
-  required,
-  error,
-  children,
+  label, required, error, children,
 }: {
-  label: string;
-  required?: boolean;
-  error?: string;
-  children: React.ReactNode;
+  label: string; required?: boolean; error?: string; children: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -78,14 +66,7 @@ function inputCls(error?: string) {
 }
 
 function SelectField({
-  label,
-  name,
-  value,
-  options,
-  onChange,
-  required,
-  error,
-  disabled,
+  label, name, value, options, onChange, required, error, disabled,
 }: {
   label: string;
   name: keyof EmployeeFormState;
@@ -107,29 +88,17 @@ function SelectField({
         >
           <option value=""></option>
           {options.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
+            <option key={o.value} value={o.value}>{o.label}</option>
           ))}
         </select>
-        <ChevronDown
-          size={13}
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-        />
+        <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
       </div>
     </FieldWrapper>
   );
 }
 
 function TextField({
-  label,
-  name,
-  value,
-  placeholder,
-  onChange,
-  required,
-  error,
-  type = "text",
+  label, name, value, placeholder, onChange, required, error, type = "text",
 }: {
   label: string;
   name: keyof EmployeeFormState;
@@ -154,12 +123,7 @@ function TextField({
 }
 
 function DateField({
-  label,
-  name,
-  value,
-  onChange,
-  required,
-  error,
+  label, name, value, onChange, required, error,
 }: {
   label: string;
   name: keyof EmployeeFormState;
@@ -188,31 +152,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── Gender / MaritalStatus / ContractType options ────────────────────────────
-
-const genderOptions = Object.values(Gender)
-  .filter((v) => typeof v === "number")
-  .map((v) => ({
-    value: GENDER_LABELS[v as Gender],
-    label: GENDER_LABELS[v as Gender],
-  }));
-
-const maritalOptions = Object.values(MaritalStatus)
-  .filter((v) => typeof v === "number")
-  .map((v) => ({
-    value: MARITAL_STATUS_LABELS[v as MaritalStatus],
-    label: MARITAL_STATUS_LABELS[v as MaritalStatus],
-  }));
-
-const contractOptions = Object.values(ContractType)
-  .filter((v) => typeof v === "number")
-  .map((v) => ({
-    value: CONTRACT_TYPE_LABELS[v as ContractType],
-    label: CONTRACT_TYPE_LABELS[v as ContractType],
-  }));
-
-// ─── Main export ──────────────────────────────────────────────────────────────
-
 export default function EmployeeFormFields({
   data,
   onChange,
@@ -223,29 +162,55 @@ export default function EmployeeFormFields({
   managers = [],
   lookupsLoading = false,
 }: EmployeeFormFieldsProps) {
-  // Filter positions by selected department
+  const { t } = useTranslation();
+
+  // ── Enum options (translated) ─────────────────────────────────────────────
+  const genderOptions = Object.values(Gender)
+    .filter((v) => typeof v === "number")
+    .map((v) => ({
+      value: GENDER_LABELS[v as Gender],
+      label: t(`enums.gender.${GENDER_LABELS[v as Gender].toLowerCase()}`),
+    }));
+
+  const maritalOptions = Object.values(MaritalStatus)
+    .filter((v) => typeof v === "number")
+    .map((v) => ({
+      value: MARITAL_STATUS_LABELS[v as MaritalStatus],
+      label: t(`enums.maritalStatus.${MARITAL_STATUS_LABELS[v as MaritalStatus].toLowerCase()}`),
+    }));
+
+  const contractOptions = Object.values(ContractType)
+    .filter((v) => typeof v === "number")
+    .map((v) => ({
+      value: CONTRACT_TYPE_LABELS[v as ContractType],
+      label: t(`enums.contractType.${CONTRACT_TYPE_LABELS[v as ContractType].toLowerCase().replace(" ", "")}`),
+    }));
+
+  const relationshipOptions = [
+    "Spouse", "Parent", "Sibling", "Child", "Friend", "Other",
+  ].map((r) => ({
+    value: r,
+    label: t(`emergencyContactsPage.relationships.${r.toLowerCase()}`),
+  }));
+
+  // ── Lookup options ────────────────────────────────────────────────────────
   const filteredPositions = data.departmentId
-    ? positions.filter(
-        (p) => !p.departmentId || p.departmentId === data.departmentId
-      )
+    ? positions.filter((p) => !p.departmentId || p.departmentId === data.departmentId)
     : positions;
 
-  const deptOptions = departments.map((d) => ({ value: d.id, label: d.name }));
-  const posOptions = filteredPositions.map((p) => ({ value: p.id, label: p.name }));
-  const branchOptions = branches.map((b) => ({ value: b.id, label: b.name }));
-  const managerOptions = managers.map((m) => ({
-    value: m.id,
-    label: m.fullName,
-  }));
+  const deptOptions    = departments.map((d) => ({ value: d.id, label: d.name }));
+  const posOptions     = filteredPositions.map((p) => ({ value: p.id, label: p.name }));
+  const branchOptions  = branches.map((b) => ({ value: b.id, label: b.name }));
+  const managerOptions = managers.map((m) => ({ value: m.id, label: m.fullName }));
 
   return (
     <div>
       {/* ── Personal Information ─────────────────────────────────────────── */}
-      <SectionTitle>Personal Information</SectionTitle>
+      <SectionTitle>{t("employee.sections.personal")}</SectionTitle>
 
       <div className="grid grid-cols-3 gap-3">
         <TextField
-          label="First Name"
+          label={t("employee.fields.firstName")}
           name="firstName"
           value={data.firstName}
           placeholder="Sarah"
@@ -254,14 +219,14 @@ export default function EmployeeFormFields({
           error={errors.firstName}
         />
         <TextField
-          label="Middle Name"
+          label={t("employee.fields.middleName")}
           name="middleName"
           value={data.middleName}
           placeholder="Ali"
           onChange={onChange}
         />
         <TextField
-          label="Last Name"
+          label={t("employee.fields.lastName")}
           name="lastName"
           value={data.lastName}
           placeholder="Mansour"
@@ -273,7 +238,7 @@ export default function EmployeeFormFields({
 
       <div className="grid grid-cols-2 gap-3 mt-3">
         <DateField
-          label="Date of Birth"
+          label={t("employee.fields.dateOfBirth")}
           name="dateOfBirth"
           value={data.dateOfBirth}
           onChange={onChange}
@@ -281,7 +246,7 @@ export default function EmployeeFormFields({
           error={errors.dateOfBirth}
         />
         <SelectField
-          label="Gender"
+          label={t("employee.fields.gender")}
           name="gender"
           value={data.gender}
           options={genderOptions}
@@ -293,7 +258,7 @@ export default function EmployeeFormFields({
 
       <div className="grid grid-cols-2 gap-3 mt-3">
         <SelectField
-          label="Nationality"
+          label={t("employee.fields.nationality")}
           name="nationality"
           value={data.nationality}
           options={NATIONALITIES.map((n) => ({ value: n, label: n }))}
@@ -302,7 +267,7 @@ export default function EmployeeFormFields({
           error={errors.nationality}
         />
         <TextField
-          label="National ID"
+          label={t("employee.fields.nationalId")}
           name="nationalId"
           value={data.nationalId}
           placeholder="784-1990-1234567-8"
@@ -314,7 +279,7 @@ export default function EmployeeFormFields({
 
       <div className="mt-3">
         <SelectField
-          label="Marital Status"
+          label={t("employee.fields.maritalStatus")}
           name="maritalStatus"
           value={data.maritalStatus}
           options={maritalOptions}
@@ -323,11 +288,11 @@ export default function EmployeeFormFields({
       </div>
 
       {/* ── Contact Information ──────────────────────────────────────────── */}
-      <SectionTitle>Contact Information</SectionTitle>
+      <SectionTitle>{t("employee.sections.contact")}</SectionTitle>
 
       <div className="grid grid-cols-2 gap-3">
         <TextField
-          label="Email Address"
+          label={t("employee.fields.email")}
           name="email"
           value={data.email}
           placeholder="ahmed@company.com"
@@ -337,7 +302,7 @@ export default function EmployeeFormFields({
           error={errors.email}
         />
         <TextField
-          label="Phone Number"
+          label={t("employee.fields.phone")}
           name="phone"
           value={data.phone}
           placeholder="+971 50 123 4567"
@@ -349,14 +314,14 @@ export default function EmployeeFormFields({
 
       <div className="grid grid-cols-2 gap-3 mt-3">
         <TextField
-          label="Mobile"
+          label={t("employee.fields.mobile")}
           name="mobile"
           value={data.mobile}
           placeholder="+971 50 987 6543"
           onChange={onChange}
         />
         <TextField
-          label="City"
+          label={t("employee.fields.city")}
           name="city"
           value={data.city}
           placeholder="Dubai"
@@ -366,37 +331,36 @@ export default function EmployeeFormFields({
 
       <div className="grid grid-cols-2 gap-3 mt-3">
         <TextField
-          label="Country"
+          label={t("employee.fields.country")}
           name="country"
           value={data.country}
           placeholder="UAE"
           onChange={onChange}
         />
-        <div /> {/* spacer */}
+        <div />
       </div>
 
       <div className="mt-3">
         <TextField
-          label="Address"
+          label={t("employee.fields.address")}
           name="address"
           value={data.address}
-          placeholder="Villa 42, Al Wasi District, Dubai, UAE"
+          placeholder="Villa 42, Al Wasl District, Dubai, UAE"
           onChange={onChange}
         />
       </div>
 
       {/* ── Employment Details ───────────────────────────────────────────── */}
-      <SectionTitle>Employment Details</SectionTitle>
+      <SectionTitle>{t("employee.sections.employment")}</SectionTitle>
 
       <div className="grid grid-cols-2 gap-3">
         <SelectField
-          label="Department"
+          label={t("employee.fields.department")}
           name="departmentId"
           value={data.departmentId}
           options={deptOptions}
           onChange={(field, value) => {
             onChange(field, value);
-            // reset position when dept changes
             onChange("positionId", "");
           }}
           required
@@ -404,7 +368,7 @@ export default function EmployeeFormFields({
           disabled={lookupsLoading}
         />
         <SelectField
-          label="Job Title / Position"
+          label={t("employee.fields.position")}
           name="positionId"
           value={data.positionId}
           options={posOptions}
@@ -417,7 +381,7 @@ export default function EmployeeFormFields({
 
       <div className="grid grid-cols-2 gap-3 mt-3">
         <SelectField
-          label="Branch"
+          label={t("employee.fields.branch")}
           name="branchId"
           value={data.branchId}
           options={branchOptions}
@@ -427,7 +391,7 @@ export default function EmployeeFormFields({
           disabled={lookupsLoading}
         />
         <SelectField
-          label="Contract Type"
+          label={t("employee.fields.contractType")}
           name="contractType"
           value={data.contractType}
           options={contractOptions}
@@ -439,7 +403,7 @@ export default function EmployeeFormFields({
 
       <div className="grid grid-cols-2 gap-3 mt-3">
         <DateField
-          label="Hire Date"
+          label={t("employee.fields.hireDate")}
           name="hireDate"
           value={data.hireDate}
           onChange={onChange}
@@ -447,7 +411,7 @@ export default function EmployeeFormFields({
           error={errors.hireDate}
         />
         <TextField
-          label="Basic Salary (AED)"
+          label={t("employeeFormFields.salaryLabel")}
           name="basicSalary"
           value={data.basicSalary}
           placeholder="15000"
@@ -459,7 +423,7 @@ export default function EmployeeFormFields({
 
       <div className="mt-3">
         <SelectField
-          label="Manager"
+          label={t("employee.fields.manager")}
           name="managerId"
           value={data.managerId}
           options={managerOptions}
@@ -469,27 +433,25 @@ export default function EmployeeFormFields({
       </div>
 
       {/* ── Emergency Contact ────────────────────────────────────────────── */}
-      <SectionTitle>Emergency Contact</SectionTitle>
+      <SectionTitle>{t("employee.sections.emergency")}</SectionTitle>
 
       <div className="grid grid-cols-3 gap-3">
         <TextField
-          label="Contact Name"
+          label={t("employee.fields.contactName")}
           name="emergencyContactName"
           value={data.emergencyContactName}
           placeholder="Sarah Al-Mansouri"
           onChange={onChange}
         />
         <SelectField
-          label="Relationship"
+          label={t("employee.fields.relationship")}
           name="emergencyContactRelationship"
           value={data.emergencyContactRelationship}
-          options={[
-            "Spouse", "Parent", "Sibling", "Child", "Friend", "Other",
-          ].map((r) => ({ value: r, label: r }))}
+          options={relationshipOptions}
           onChange={onChange}
         />
         <TextField
-          label="Phone Number"
+          label={t("employee.fields.phone")}
           name="emergencyContactPhone"
           value={data.emergencyContactPhone}
           placeholder="+971 50 765 4321"

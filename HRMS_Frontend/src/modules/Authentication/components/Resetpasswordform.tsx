@@ -1,8 +1,8 @@
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useResetPasswordForm } from "../hooks/useResetPassword";
 import { FieldStatus } from "../types/auth.types";
+import { useTranslation } from "react-i18next";
 
-// ─── Input Class Helper ───────────────────────────────────────────────────────
 function getInputClass(status: FieldStatus): string {
   const base =
     "w-full border-2 rounded-lg px-4 py-3 outline-none transition-all duration-200 text-sm";
@@ -13,27 +13,14 @@ function getInputClass(status: FieldStatus): string {
   return `${base} border-gray-200 bg-gray-50 focus:border-[#07122D] focus:ring-2 focus:ring-[#07122D]/10 focus:bg-white`;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export default function ResetPasswordForm() {
+  const { t } = useTranslation("authentication");
   const {
-    values,
-    errors,
-    touched,
-    loading,
-    showPassword,
-    showConfirmPassword,
-    apiError,
-    successMessage,
-    passwordStatus,
-    confirmPasswordStatus,
-    handlePasswordChange,
-    handlePasswordBlur,
-    handleConfirmPasswordChange,
-    handleConfirmPasswordBlur,
-    toggleShowPassword,
-    toggleShowConfirmPassword,
-    handleSubmit,
-  } = useResetPasswordForm();
+    values, errors, touched, loading, showPassword, showConfirmPassword,
+    apiError, successMessage, passwordStatus, confirmPasswordStatus,
+    handlePasswordChange, handlePasswordBlur, handleConfirmPasswordChange,
+    handleConfirmPasswordBlur, toggleShowPassword, toggleShowConfirmPassword, handleSubmit,
+  } = useResetPasswordForm(t);
 
   return (
     <form onSubmit={handleSubmit} noValidate>
@@ -56,7 +43,7 @@ export default function ResetPasswordForm() {
         {/* ── New Password ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            New Password <span className="text-red-500">*</span>
+            {t("resetPassword.form.password.label")} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <input
@@ -64,7 +51,7 @@ export default function ResetPasswordForm() {
               value={values.password}
               onChange={handlePasswordChange}
               onBlur={handlePasswordBlur}
-              placeholder="Enter your new password"
+              placeholder={t("resetPassword.form.password.placeholder")}
               autoComplete="new-password"
               className={`${getInputClass(passwordStatus)} pr-12`}
             />
@@ -72,7 +59,7 @@ export default function ResetPasswordForm() {
               type="button"
               onClick={toggleShowPassword}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? t("resetPassword.accessibility.hidePassword") : t("resetPassword.accessibility.showPassword")}
             >
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </button>
@@ -87,7 +74,7 @@ export default function ResetPasswordForm() {
         {/* ── Confirm New Password ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Confirm New Password <span className="text-red-500">*</span>
+            {t("resetPassword.form.confirmPassword.label")} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <input
@@ -95,7 +82,7 @@ export default function ResetPasswordForm() {
               value={values.confirmPassword}
               onChange={handleConfirmPasswordChange}
               onBlur={handleConfirmPasswordBlur}
-              placeholder="Confirm your new password"
+              placeholder={t("resetPassword.form.confirmPassword.placeholder")}
               autoComplete="new-password"
               className={`${getInputClass(confirmPasswordStatus)} pr-12`}
             />
@@ -103,7 +90,7 @@ export default function ResetPasswordForm() {
               type="button"
               onClick={toggleShowConfirmPassword}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              aria-label={showConfirmPassword ? t("resetPassword.accessibility.hidePassword") : t("resetPassword.accessibility.showPassword")}
             >
               {showConfirmPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </button>
@@ -119,15 +106,9 @@ export default function ResetPasswordForm() {
         <button
           type="submit"
           disabled={loading}
-          className="
-            w-full bg-[#07122D] text-white
-            rounded-lg py-3 font-bold text-sm
-            hover:bg-[#0f1f4a] active:scale-[0.99]
-            disabled:opacity-50 disabled:cursor-not-allowed
-            transition-all duration-200 tracking-wide
-          "
+          className="w-full bg-[#07122D] text-white rounded-lg py-3 font-bold text-sm hover:bg-[#0f1f4a] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 tracking-wide"
         >
-          {loading ? "Updating..." : "Submit"}
+          {loading ? t("resetPassword.form.submit.loading") : t("resetPassword.form.submit.default")}
         </button>
 
       </div>

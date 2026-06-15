@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Pencil, Trash2, User, Phone, Mail, MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import AddEmergencyContactModal from "./AddEmergencyContactModal";
 
 interface EmergencyContact {
@@ -20,7 +21,7 @@ const mockContacts: EmergencyContact[] = Array.from({ length: 6 }, (_, i) => ({
   name: "Ahmed Hassan Al-Mansouri",
   empId: "EMP-1024",
   contactName: "Sarah Al-Mansouri",
-  relationship: i % 2 === 0 ? "Spouse" : "Parent",
+  relationship: i % 2 === 0 ? "spouse" : "parent",
   phone: "+971 50 765 4321",
   altPhone: "+971 4 123 4567",
   email: "sarah.almansouri@email.com",
@@ -29,23 +30,44 @@ const mockContacts: EmergencyContact[] = Array.from({ length: 6 }, (_, i) => ({
 }));
 
 export default function EmergencyContactsPage() {
+  const { t } = useTranslation("employees");
   const [search, setSearch] = useState("");
-  const [relFilter, setRelFilter] = useState("All Relationship");
-  const [deptFilter, setDeptFilter] = useState("All Departments");
+  const [relFilter, setRelFilter] = useState("all");
+  const [deptFilter, setDeptFilter] = useState("all");
   const [showAdd, setShowAdd] = useState(false);
+
+  const relationshipOptions = [
+    { value: "all",     label: t("emergencyContactsPage.filters.allRelationships") },
+    { value: "spouse",  label: t("emergencyContactsPage.relationships.spouse") },
+    { value: "parent",  label: t("emergencyContactsPage.relationships.parent") },
+    { value: "sibling", label: t("emergencyContactsPage.relationships.sibling") },
+    { value: "friend",  label: t("emergencyContactsPage.relationships.friend") },
+  ];
+
+  const departmentOptions = [
+    { value: "all",         label: t("emergencyContactsPage.filters.allDepartments") },
+    { value: "Engineering", label: t("contract.departments.engineering") },
+    { value: "IT",          label: t("contract.departments.it") },
+    { value: "HR",          label: t("contract.departments.hr") },
+  ];
 
   return (
     <div className="p-6 md:p-8 min-h-screen bg-[#f7f8fc]">
+      {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">Emergency Contacts</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Manage employee emergency contact information</p>
+          <h1 className="text-xl font-bold text-gray-900">
+            {t("emergencyContactsPage.title")}
+          </h1>
+          <p className="text-sm text-gray-500 mt-0.5">
+            {t("emergencyContactsPage.description")}
+          </p>
         </div>
         <button
           onClick={() => setShowAdd(true)}
           className="flex items-center gap-2 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition"
         >
-          + Add Contacts
+          + {t("emergencyContactsPage.addButton")}
         </button>
       </div>
 
@@ -54,25 +76,44 @@ export default function EmergencyContactsPage() {
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search Contacts"
+          placeholder={t("emergencyContactsPage.searchPlaceholder")}
           className="flex-1 min-w-[180px] border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-100 bg-white"
         />
-        <select value={relFilter} onChange={(e) => setRelFilter(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white">
-          {["All Relationship", "Spouse", "Parent", "Sibling", "Friend"].map((o) => <option key={o}>{o}</option>)}
+        <select
+          value={relFilter}
+          onChange={(e) => setRelFilter(e.target.value)}
+          className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white"
+        >
+          {relationshipOptions.map((o) => (
+            <option key={o.value} value={o.value}>{o.label}</option>
+          ))}
         </select>
-        <select value={deptFilter} onChange={(e) => setDeptFilter(e.target.value)} className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white">
-          {["All Departments", "Engineering", "IT Technology", "HR"].map((o) => <option key={o}>{o}</option>)}
+        <select
+          value={deptFilter}
+          onChange={(e) => setDeptFilter(e.target.value)}
+          className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none bg-white"
+        >
+          {departmentOptions.map((o) => (
+            <option key={o.value} value={o.value}>{o.label}</option>
+          ))}
         </select>
       </div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {mockContacts.map((c) => (
-          <div key={c.id} className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition relative">
+          <div
+            key={c.id}
+            className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition relative"
+          >
             {/* Actions */}
             <div className="absolute top-3 right-3 flex items-center gap-1.5">
-              <button className="text-gray-400 hover:text-gray-600"><Pencil size={14} /></button>
-              <button className="text-red-400 hover:text-red-600"><Trash2 size={14} /></button>
+              <button className="text-gray-400 hover:text-gray-600">
+                <Pencil size={14} />
+              </button>
+              <button className="text-red-400 hover:text-red-600">
+                <Trash2 size={14} />
+              </button>
             </div>
 
             {/* Avatar + Name */}
@@ -89,7 +130,9 @@ export default function EmergencyContactsPage() {
               <div className="flex items-center gap-2 text-xs text-gray-600">
                 <User size={13} className="text-gray-400 shrink-0" />
                 <span>{c.contactName}</span>
-                <span className="text-gray-400">— {c.relationship}</span>
+                <span className="text-gray-400">
+                  — {t(`emergencyContactsPage.relationships.${c.relationship}`)}
+                </span>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-600">
                 <Phone size={13} className="text-gray-400 shrink-0" />
@@ -97,7 +140,7 @@ export default function EmergencyContactsPage() {
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-600">
                 <Phone size={13} className="text-gray-400 shrink-0" />
-                <span>Alt: {c.altPhone}</span>
+                <span>{t("emergencyContactsPage.altPhone", { number: c.altPhone })}</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-600">
                 <Mail size={13} className="text-gray-400 shrink-0" />
@@ -111,7 +154,9 @@ export default function EmergencyContactsPage() {
 
             {c.notes && (
               <div className="mt-3 pt-3 border-t border-gray-100">
-                <p className="text-xs text-gray-400">Notes:</p>
+                <p className="text-xs text-gray-400">
+                  {t("emergencyContactsPage.notesLabel")}
+                </p>
                 <p className="text-xs text-gray-600">{c.notes}</p>
               </div>
             )}

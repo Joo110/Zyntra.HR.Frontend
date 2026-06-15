@@ -3,8 +3,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { FieldStatus, PasswordStrength, RegisterFormErrors, RegisterFormValues } from "../types/auth.types";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-// ─── Input Class Helper ───────────────────────────────────────────────────────
 function getInputClass(status: FieldStatus): string {
   const base =
     "w-full border-2 rounded-lg px-4 py-3 outline-none transition-all duration-200 text-sm";
@@ -15,7 +15,6 @@ function getInputClass(status: FieldStatus): string {
   return `${base} border-gray-200 bg-gray-50 focus:border-[#07122D] focus:ring-2 focus:ring-[#07122D]/10 focus:bg-white`;
 }
 
-// ─── Error Message ────────────────────────────────────────────────────────────
 function ErrorMsg({ message }: { message: string }) {
   if (!message) return null;
   return (
@@ -25,7 +24,6 @@ function ErrorMsg({ message }: { message: string }) {
   );
 }
 
-// ─── Props ────────────────────────────────────────────────────────────────────
 interface RegisterFormProps {
   values: RegisterFormValues;
   errors: RegisterFormErrors;
@@ -53,33 +51,15 @@ interface RegisterFormProps {
   onLoginClick: () => void;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export default function RegisterForm({
-  values,
-  errors,
-  touched,
-  loading,
-  showPassword,
-  showConfirmPassword,
-  apiError,
-  nameStatus,
-  emailStatus,
-  passwordStatus,
-  confirmPasswordStatus,
-  passwordStrength,
-  onNameChange,
-  onEmailChange,
-  onPasswordChange,
-  onConfirmPasswordChange,
-  onNameBlur,
-  onEmailBlur,
-  onPasswordBlur,
-  onConfirmPasswordBlur,
-  onTogglePassword,
-  onToggleConfirmPassword,
-  onSubmit,
-  onLoginClick,
+  values, errors, touched, loading, showPassword, showConfirmPassword, apiError,
+  nameStatus, emailStatus, passwordStatus, confirmPasswordStatus, passwordStrength,
+  onNameChange, onEmailChange, onPasswordChange, onConfirmPasswordChange,
+  onNameBlur, onEmailBlur, onPasswordBlur, onConfirmPasswordBlur,
+  onTogglePassword, onToggleConfirmPassword, onSubmit, onLoginClick,
 }: RegisterFormProps) {
+  const { t } = useTranslation("authentication");
+
   return (
     <form onSubmit={onSubmit} noValidate>
       <div className="space-y-5">
@@ -94,14 +74,14 @@ export default function RegisterForm({
         {/* ── Full Name ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Full Name <span className="text-red-500">*</span>
+            {t("register.form.name.label")} <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             value={values.name}
             onChange={onNameChange}
             onBlur={onNameBlur}
-            placeholder="Enter your full name"
+            placeholder={t("register.form.name.placeholder")}
             autoComplete="name"
             className={getInputClass(nameStatus)}
           />
@@ -111,14 +91,14 @@ export default function RegisterForm({
         {/* ── Email ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Email Address <span className="text-red-500">*</span>
+            {t("register.form.email.label")} <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
             value={values.email}
             onChange={onEmailChange}
             onBlur={onEmailBlur}
-            placeholder="Enter your email address"
+            placeholder={t("register.form.email.placeholder")}
             autoComplete="email"
             className={getInputClass(emailStatus)}
           />
@@ -128,7 +108,7 @@ export default function RegisterForm({
         {/* ── Password ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Password <span className="text-red-500">*</span>
+            {t("register.form.password.label")} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <input
@@ -136,7 +116,7 @@ export default function RegisterForm({
               value={values.password}
               onChange={onPasswordChange}
               onBlur={onPasswordBlur}
-              placeholder="Create a strong password"
+              placeholder={t("register.form.password.placeholder")}
               autoComplete="new-password"
               className={`${getInputClass(passwordStatus)} pr-12`}
             />
@@ -144,26 +124,22 @@ export default function RegisterForm({
               type="button"
               onClick={onTogglePassword}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? t("register.accessibility.hidePassword") : t("register.accessibility.showPassword")}
             >
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </button>
           </div>
 
-          {/* Strength Bar */}
           {values.password.length > 0 && passwordStrength && (
             <div className="mt-2">
               <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-300"
-                  style={{
-                    width: passwordStrength.width,
-                    backgroundColor: passwordStrength.color,
-                  }}
+                  style={{ width: passwordStrength.width, backgroundColor: passwordStrength.color }}
                 />
               </div>
               <p className="text-xs mt-1 font-semibold" style={{ color: passwordStrength.color }}>
-                Strength: {passwordStrength.label}
+                {t("register.form.password.strength")}: {passwordStrength.label}
               </p>
             </div>
           )}
@@ -174,7 +150,7 @@ export default function RegisterForm({
         {/* ── Confirm Password ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Confirm Password <span className="text-red-500">*</span>
+            {t("register.form.confirmPassword.label")} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <input
@@ -182,7 +158,7 @@ export default function RegisterForm({
               value={values.confirmPassword}
               onChange={onConfirmPasswordChange}
               onBlur={onConfirmPasswordBlur}
-              placeholder="Re-enter your password"
+              placeholder={t("register.form.confirmPassword.placeholder")}
               autoComplete="new-password"
               className={`${getInputClass(confirmPasswordStatus)} pr-12`}
             />
@@ -190,7 +166,7 @@ export default function RegisterForm({
               type="button"
               onClick={onToggleConfirmPassword}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-              aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+              aria-label={showConfirmPassword ? t("register.accessibility.hidePassword") : t("register.accessibility.showPassword")}
             >
               {showConfirmPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </button>
@@ -202,48 +178,34 @@ export default function RegisterForm({
         <button
           type="submit"
           disabled={loading}
-          className="
-            w-full bg-[#07122D] text-white
-            rounded-lg py-3 font-bold text-sm
-            hover:bg-[#0f1f4a] active:scale-[0.99]
-            disabled:opacity-50 disabled:cursor-not-allowed
-            transition-all duration-200 tracking-wide
-          "
+          className="w-full bg-[#07122D] text-white rounded-lg py-3 font-bold text-sm hover:bg-[#0f1f4a] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 tracking-wide"
         >
-          {loading ? "Creating account..." : "Create Account"}
+          {loading ? t("register.form.submit.loading") : t("register.form.submit.register")}
         </button>
       </div>
 
       {/* ── Divider ── */}
       <div className="flex items-center gap-4 my-6">
         <div className="flex-1 border-t border-gray-200" />
-        <span className="text-gray-400 text-sm">Or sign up with</span>
+        <span className="text-gray-400 text-sm">{t("register.divider")}</span>
         <div className="flex-1 border-t border-gray-200" />
       </div>
 
       {/* ── Social Buttons ── */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <button
-          type="button"
-          className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all"
-        >
-          <FcGoogle size={20} />
-          Google
+        <button type="button" className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all">
+          <FcGoogle size={20} /> {t("register.social.google")}
         </button>
-        <button
-          type="button"
-          className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all"
-        >
-          <FaApple size={20} />
-          Apple
+        <button type="button" className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all">
+          <FaApple size={20} /> {t("register.social.apple")}
         </button>
       </div>
 
       {/* ── Login Link ── */}
       <p className="text-center text-gray-500 text-sm">
-        Already have an account?{" "}
+        {t("register.footer.hasAccount")}{" "}
         <Link to="/login" className="font-bold text-[#07122D] hover:underline">
-            Login
+          {t("register.footer.login")}
         </Link>
       </p>
     </form>

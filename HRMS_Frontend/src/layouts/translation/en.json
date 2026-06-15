@@ -14,6 +14,17 @@
     "branches": "Branches",
     "rolesPermissions": "Roles & Permissions"
   },
+  "months": {
+    "jan": "Jan", "feb": "Feb", "mar": "Mar", "apr": "Apr",
+    "may": "May", "jun": "Jun", "jul": "Jul"
+  },
+  "departments": {
+    "engineering": "Engineering", "sales": "Sales",
+    "marketing": "Marketing", "hr": "HR", "operations": "Operations"
+  },
+  "leaveTypes": {
+    "annual": "Annual Leave", "sick": "Sick Leave", "unpaid": "Unpaid Leave"
+  },
   "dashboard": {
     "header": {
       "title": "Hi, Sir 👋",
@@ -21,7 +32,6 @@
       "filter": "Last 7 Days",
       "export": "Export Report"
     },
-
     "stats": {
       "totalEmployees": "Total Employees",
       "presentToday": "Present Today",
@@ -29,7 +39,6 @@
       "monthlyPayroll": "Monthly Payroll",
       "vsLastMonth": "vs last month"
     },
-
     "charts": {
       "attendance": {
         "title": "Attendance Trends",
@@ -47,17 +56,23 @@
         "subtitle": "Monthly payroll expenditure"
       }
     },
-
     "leaveRequests": {
       "title": "Leave Requests",
       "viewAll": "View All"
     },
-
     "activities": {
       "title": "Recent Activities",
-      "viewAll": "View All"
+      "viewAll": "View All",
+      "onboarded": "New employee onboarded",
+      "leaveApproved": "Leave request approved",
+      "payroll": "Payroll processed",
+      "late": "Attendance marked late",
+      "performance": "Performance review submitted"
     },
-
+    "time": {
+      "twoHours": "2 hours ago", "fourHours": "4 hours ago",
+      "oneDay": "1 day ago", "twoDays": "2 days ago", "threeDays": "3 days ago"
+    },
     "status": {
       "pending": "Pending",
       "approved": "Approved",
@@ -66,15 +81,9 @@
   },
   "sidebar": {
     "mainMenu": "Main Menu",
-    "brand": {
-      "name": "Arabian Meem",
-      "subtitle": "الميم العربية"
-    },
-    "user": {
-      "name": "Mohamed Morsy",
-      "role": "Admin"
-    },
-
+    "hrManagement": "HR Management",
+    "brand": { "name": "Arabian Meem", "subtitle": "الميم العربية" },
+    "user": { "name": "Mohamed Morsy", "role": "Admin" },
     "items": {
       "dashboard": "Dashboard",
       "employees": "Employees",
@@ -88,17 +97,16 @@
       "finance": "Finance",
       "reports": "Reports",
       "branches": "Branches",
-      "rolesPermissions": "Roles & Permissions"
+      "rolesPermissions": "Roles & Permissions",
+      "employeeContracts": "Contracts",
+      "employeeDocuments": "Documents",
+      "employeeQualifications": "Qualifications",
+      "emergencyContacts": "Emergency Contacts"
     }
   },
-   "topbar": {
-    "search": {
-      "placeholder": "Search..."
-    },
+  "topbar": {
+    "search": { "placeholder": "Search..." },
     "date": "Jun 10, 2026",
-    "user": {
-      "name": "Mohamed Morsy",
-      "role": "Admin"
-    }
+    "user": { "name": "Mohamed Morsy", "role": "Admin" }
   }
 }

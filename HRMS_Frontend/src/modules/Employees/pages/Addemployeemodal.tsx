@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   EmployeeFormState,
   EMPTY_FORM,
@@ -15,7 +16,6 @@ import { validateEmployeeForm, hasErrors } from "../schemas/vaildationemployee";
 interface AddEmployeeModalProps {
   onClose: () => void;
   onAdd: (form: EmployeeFormState) => Promise<void>;
-  // Lookup lists passed from parent (loaded once)
   departments?: Department[];
   positions?: Position[];
   branches?: Branch[];
@@ -32,6 +32,7 @@ export default function AddEmployeeModal({
   managers,
   lookupsLoading,
 }: AddEmployeeModalProps) {
+  const { t } = useTranslation("employees");
   const [form, setForm] = useState<EmployeeFormState>(EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
@@ -39,7 +40,6 @@ export default function AddEmployeeModal({
 
   const handleChange = (field: keyof EmployeeFormState, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    // clear field error on change
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
@@ -49,7 +49,6 @@ export default function AddEmployeeModal({
     const validationErrors = validateEmployeeForm(form, false);
     if (hasErrors(validationErrors)) {
       setErrors(validationErrors);
-      // scroll to first error
       const firstErrorKey = Object.keys(validationErrors)[0];
       document
         .querySelector(`[name="${firstErrorKey}"]`)
@@ -64,7 +63,7 @@ export default function AddEmployeeModal({
       onClose();
     } catch (err) {
       setApiError(
-        err instanceof Error ? err.message : "Something went wrong. Please try again."
+        err instanceof Error ? err.message : t("employee.genericError")
       );
     } finally {
       setSubmitting(false);
@@ -77,9 +76,11 @@ export default function AddEmployeeModal({
         {/* Header */}
         <div className="flex items-start justify-between px-6 pt-6 pb-4 border-b border-gray-100">
           <div>
-            <h2 className="text-base font-bold text-gray-900">Add New Employee</h2>
+            <h2 className="text-base font-bold text-gray-900">
+              {t("employee.addNew")}
+            </h2>
             <p className="text-xs text-gray-500 mt-0.5">
-              Fill in the employee details to add them to the system
+              {t("employee.addDescription")}
             </p>
           </div>
           <button
@@ -118,7 +119,7 @@ export default function AddEmployeeModal({
             disabled={submitting}
             className="px-5 py-2 text-sm border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition font-medium disabled:opacity-50"
           >
-            Cancel
+            {t("employee.cancel")}
           </button>
           <button
             onClick={handleSubmit}
@@ -126,7 +127,7 @@ export default function AddEmployeeModal({
             className="flex items-center gap-2 px-5 py-2 text-sm bg-[#4F8EF7] text-white rounded-lg hover:bg-blue-600 transition font-medium disabled:opacity-70"
           >
             {submitting && <Loader2 size={14} className="animate-spin" />}
-            {submitting ? "Adding..." : "Add Employee"}
+            {submitting ? t("employee.adding") : t("employee.add")}
           </button>
         </div>
       </div>

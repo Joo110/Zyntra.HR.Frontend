@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useForgotPasswordForm } from "../hooks/useForgotPassword";
 import { FieldStatus } from "../types/auth.types";
+import { useTranslation } from "react-i18next";
 
-// ─── Input Class Helper ───────────────────────────────────────────────────────
 function getInputClass(status: FieldStatus): string {
   const base =
     "w-full border-2 rounded-lg px-4 py-3 outline-none transition-all duration-200 text-sm";
@@ -13,20 +13,12 @@ function getInputClass(status: FieldStatus): string {
   return `${base} border-gray-200 bg-gray-50 focus:border-[#07122D] focus:ring-2 focus:ring-[#07122D]/10 focus:bg-white`;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export default function ForgotPasswordForm() {
+  const { t } = useTranslation("authentication");
   const {
-    values,
-    errors,
-    touched,
-    loading,
-    apiError,
-    successMessage,
-    emailStatus,
-    handleEmailChange,
-    handleEmailBlur,
-    handleSubmit,
-  } = useForgotPasswordForm();
+    values, errors, touched, loading, apiError, successMessage,
+    emailStatus, handleEmailChange, handleEmailBlur, handleSubmit,
+  } = useForgotPasswordForm(t);
 
   return (
     <form onSubmit={handleSubmit} noValidate>
@@ -49,14 +41,14 @@ export default function ForgotPasswordForm() {
         {/* ── Email ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Registered Email <span className="text-red-500">*</span>
+            {t("forgotPassword.form.email.label")} <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
             value={values.email}
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
-            placeholder="Enter your registered email"
+            placeholder={t("forgotPassword.form.email.placeholder")}
             autoComplete="email"
             className={getInputClass(emailStatus)}
           />
@@ -71,29 +63,17 @@ export default function ForgotPasswordForm() {
         <button
           type="submit"
           disabled={loading}
-          className="
-            w-full bg-[#07122D] text-white
-            rounded-lg py-3 font-bold text-sm
-            hover:bg-[#0f1f4a] active:scale-[0.99]
-            disabled:opacity-50 disabled:cursor-not-allowed
-            transition-all duration-200 tracking-wide
-          "
+          className="w-full bg-[#07122D] text-white rounded-lg py-3 font-bold text-sm hover:bg-[#0f1f4a] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 tracking-wide"
         >
-          {loading ? "Sending..." : "Send Reset Link"}
+          {loading ? t("forgotPassword.form.submit.loading") : t("forgotPassword.form.submit.default")}
         </button>
 
         {/* ── Back to Login ── */}
         <Link
           to="/login"
-          className="
-            w-full border-2 border-gray-200 text-[#07122D]
-            rounded-lg py-3 font-bold text-sm
-            hover:border-[#07122D] hover:bg-gray-50
-            transition-all duration-200 tracking-wide
-            flex items-center justify-center
-          "
+          className="w-full border-2 border-gray-200 text-[#07122D] rounded-lg py-3 font-bold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all duration-200 tracking-wide flex items-center justify-center"
         >
-          Back
+          {t("forgotPassword.form.back")}
         </Link>
 
       </div>

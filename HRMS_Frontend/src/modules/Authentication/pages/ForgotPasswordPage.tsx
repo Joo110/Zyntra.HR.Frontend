@@ -1,10 +1,11 @@
 import ForgotPasswordForm from "../components/Forgotpasswordform";
+import { useTranslation } from "react-i18next";
 
 export default function ForgotPasswordPage() {
+  const { t } = useTranslation("authentication");
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#07122D] relative overflow-hidden">
-
-      {/* Background Wave — same as LoginPage */}
       <div className="absolute bottom-0 left-0 w-full h-[400px] overflow-hidden pointer-events-none z-0">
         <svg viewBox="0 0 2387 1141" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path opacity="0.010101" d="M373 80.3406C276.766 987.569 549.579 786.108 800.008 421.751C893.241 286.104 1105.22 292.609 1174.85 441.754L1293.85 696.647C1360.86 840.165 1560.17 852.555 1644.43 718.439L1738.79 568.249C1820.55 438.117 2012.42 444.989 2084.66 580.635L2380.84 1136.78" stroke="#FAFAFA"/>
@@ -14,20 +15,17 @@ export default function ForgotPasswordPage() {
         </svg>
       </div>
 
-      {/* Card */}
       <div className="bg-white w-full max-w-xl rounded-2xl shadow-2xl p-10 z-10">
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold text-[#07122D] mb-3">
-            Reset your password
+            {t("forgotPassword.title")}
           </h1>
           <p className="text-gray-500 text-sm">
-            Enter your email and we will send a password reset
+            {t("forgotPassword.description")}
           </p>
         </div>
-
         <ForgotPasswordForm />
       </div>
-
     </div>
   );
 }

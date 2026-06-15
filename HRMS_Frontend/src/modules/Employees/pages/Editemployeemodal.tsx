@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { X, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   EmployeeDTO,
   EmployeeFormState,
@@ -15,14 +16,12 @@ import {
 import EmployeeFormFields from "./Employeeformfields";
 import { validateEmployeeForm, hasErrors } from "../schemas/vaildationemployee";
 
-// ─── Helper: DTO → form state ─────────────────────────────────────────────────
-
 function dtoToForm(emp: EmployeeDTO): EmployeeFormState {
   return {
     firstName: emp.firstName ?? "",
     middleName: emp.middleName ?? "",
     lastName: emp.lastName ?? "",
-    dateOfBirth: emp.dateOfBirth?.slice(0, 10) ?? "",  // keep YYYY-MM-DD only
+    dateOfBirth: emp.dateOfBirth?.slice(0, 10) ?? "",
     gender: GENDER_LABELS[emp.gender] ?? "",
     nationality: emp.nationality ?? "",
     nationalId: emp.nationalId ?? "",
@@ -46,8 +45,6 @@ function dtoToForm(emp: EmployeeDTO): EmployeeFormState {
   };
 }
 
-// ─── Props ────────────────────────────────────────────────────────────────────
-
 interface EditEmployeeModalProps {
   employee: EmployeeDTO;
   onClose: () => void;
@@ -69,6 +66,7 @@ export default function EditEmployeeModal({
   managers,
   lookupsLoading,
 }: EditEmployeeModalProps) {
+  const { t } = useTranslation("employees");
   const [form, setForm] = useState<EmployeeFormState>(() => dtoToForm(employee));
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
@@ -101,7 +99,7 @@ export default function EditEmployeeModal({
       onClose();
     } catch (err) {
       setApiError(
-        err instanceof Error ? err.message : "Something went wrong. Please try again."
+        err instanceof Error ? err.message : t("employee.genericError")
       );
     } finally {
       setSubmitting(false);
@@ -116,8 +114,12 @@ export default function EditEmployeeModal({
         {/* Header */}
         <div className="flex items-start justify-between px-6 pt-6 pb-4 border-b border-gray-100">
           <div>
-            <h2 className="text-base font-bold text-gray-900">Edit Employee Profile</h2>
-            <p className="text-xs text-gray-500 mt-0.5">Update {fullName}'s profile</p>
+            <h2 className="text-base font-bold text-gray-900">
+              {t("employee.editProfile")}
+            </h2>
+            <p className="text-xs text-gray-500 mt-0.5">
+              {t("employee.updateProfile", { name: fullName })}
+            </p>
           </div>
           <button
             onClick={onClose}
@@ -156,7 +158,7 @@ export default function EditEmployeeModal({
             disabled={submitting}
             className="px-5 py-2 text-sm border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition font-medium disabled:opacity-50"
           >
-            Cancel
+            {t("employee.cancel")}
           </button>
           <button
             onClick={handleSave}
@@ -164,7 +166,7 @@ export default function EditEmployeeModal({
             className="flex items-center gap-2 px-5 py-2 text-sm bg-[#4F8EF7] text-white rounded-lg hover:bg-blue-600 transition font-medium disabled:opacity-70"
           >
             {submitting && <Loader2 size={14} className="animate-spin" />}
-            {submitting ? "Saving..." : "Save Changes"}
+            {submitting ? t("employee.saving") : t("employee.saveChanges")}
           </button>
         </div>
       </div>

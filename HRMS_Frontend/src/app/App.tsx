@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "../modules/Authentication/pages/LoginPage";
-import { RegisterPage } from "../modules/Authentication/schemas";
+import RegisterPage from "../modules/Authentication/pages/RegisterPage";
 import ForgotPasswordPage from "../modules/Authentication/pages/ForgotPasswordPage";
 
 import DashboardLayout from "../layouts/Dashboardlayout";

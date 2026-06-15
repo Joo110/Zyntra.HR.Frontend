@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 type DayStatus = "present" | "late" | "absent" | "leave" | "weekend" | "future" | "today";
 
@@ -8,12 +9,10 @@ interface DayData {
 }
 
 const calendarDays: (DayData | null)[] = [
-  // Week 1: starts on Friday
   null, null, null, null,
   { day: 1, status: "present" },
   { day: 2, status: "weekend" },
   { day: 3, status: "weekend" },
-  // Week 2
   { day: 4, status: "present" },
   { day: 5, status: "present" },
   { day: 6, status: "late" },
@@ -21,7 +20,6 @@ const calendarDays: (DayData | null)[] = [
   { day: 8, status: "present" },
   { day: 9, status: "weekend" },
   { day: 10, status: "weekend" },
-  // Week 3
   { day: 11, status: "present" },
   { day: 12, status: "present" },
   { day: 13, status: "present" },
@@ -29,7 +27,6 @@ const calendarDays: (DayData | null)[] = [
   { day: 15, status: "present" },
   { day: 16, status: "weekend" },
   { day: 17, status: "weekend" },
-  // Week 4
   { day: 18, status: "leave" },
   { day: 19, status: "leave" },
   { day: 20, status: "present" },
@@ -37,7 +34,6 @@ const calendarDays: (DayData | null)[] = [
   { day: 22, status: "present" },
   { day: 23, status: "weekend" },
   { day: 24, status: "weekend" },
-  // Week 5
   { day: 25, status: "late" },
   { day: 26, status: "present" },
   { day: 27, status: "today" },
@@ -56,40 +52,63 @@ const statusStyles: Record<DayStatus, string> = {
   today: "border-2 border-blue-500 text-gray-700 font-bold",
 };
 
-const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
 export default function AttendanceTab() {
+  const { t } = useTranslation("employees");
+
+  const weekDays = [
+    t("attendance.weekDays.mon"),
+    t("attendance.weekDays.tue"),
+    t("attendance.weekDays.wed"),
+    t("attendance.weekDays.thu"),
+    t("attendance.weekDays.fri"),
+    t("attendance.weekDays.sat"),
+    t("attendance.weekDays.sun"),
+  ];
+
   return (
     <div>
-      <h2 className="text-base font-semibold text-gray-800 mb-5">Attendance Overview</h2>
+      <h2 className="text-base font-semibold text-gray-800 mb-5">
+        {t("attendance.overview")}
+      </h2>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         <div className="bg-green-50 rounded-xl p-4">
           <div className="flex items-center gap-1.5 mb-1">
             <span className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</span>
-            <span className="text-xs text-green-700 font-medium">PRESENT</span>
+            <span className="text-xs text-green-700 font-medium">
+              {t("attendance.status.present")}
+            </span>
           </div>
           <p className="text-3xl font-bold text-green-700">18</p>
         </div>
+
         <div className="bg-orange-50 rounded-xl p-4">
           <div className="flex items-center gap-1.5 mb-1">
             <span className="w-5 h-5 rounded-full bg-orange-400 flex items-center justify-center text-white text-xs">!</span>
-            <span className="text-xs text-orange-600 font-medium">LATE</span>
+            <span className="text-xs text-orange-600 font-medium">
+              {t("attendance.status.late")}
+            </span>
           </div>
           <p className="text-3xl font-bold text-orange-500">2</p>
         </div>
+
         <div className="bg-red-50 rounded-xl p-4">
           <div className="flex items-center gap-1.5 mb-1">
             <span className="w-5 h-5 rounded-full bg-red-400 flex items-center justify-center text-white text-xs">✕</span>
-            <span className="text-xs text-red-500 font-medium">ABSENT</span>
+            <span className="text-xs text-red-500 font-medium">
+              {t("attendance.status.absent")}
+            </span>
           </div>
           <p className="text-3xl font-bold text-red-400">0</p>
         </div>
+
         <div className="bg-blue-50 rounded-xl p-4">
           <div className="flex items-center gap-1.5 mb-1">
             <span className="w-5 h-5 rounded-full bg-blue-400 flex items-center justify-center text-white text-xs">↗</span>
-            <span className="text-xs text-blue-500 font-medium">ON LEAVE</span>
+            <span className="text-xs text-blue-500 font-medium">
+              {t("attendance.status.onLeave")}
+            </span>
           </div>
           <p className="text-3xl font-bold text-blue-400">2</p>
         </div>
@@ -97,7 +116,6 @@ export default function AttendanceTab() {
 
       {/* Calendar */}
       <div className="border border-gray-100 rounded-xl p-4">
-        {/* Day headers */}
         <div className="grid grid-cols-7 mb-2">
           {weekDays.map((d) => (
             <div key={d} className="text-center text-xs font-medium text-gray-400 py-1">
@@ -106,7 +124,6 @@ export default function AttendanceTab() {
           ))}
         </div>
 
-        {/* Days grid */}
         <div className="grid grid-cols-7 gap-1">
           {calendarDays.map((cell, i) => {
             if (!cell) return <div key={`empty-${i}`} />;

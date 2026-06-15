@@ -1,75 +1,55 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // ✅ added
 import {
-  LayoutDashboard,
-  Users,
-  Building2,
-  Clock,
-  CalendarOff,
-  DollarSign,
-  UserSearch,
-  TrendingUp,
-  User,
-  Wallet,
-  BarChart3,
-  GitBranch,
-  ShieldCheck,
-  ChevronRight,
-  Menu,
-  X,
-  FileText,
-  FolderOpen,
-  GraduationCap,
-  Phone,
+  LayoutDashboard, Users, Building2, Clock, CalendarOff,
+  DollarSign, UserSearch, TrendingUp, User, Wallet, BarChart3,
+  GitBranch, ShieldCheck, ChevronRight, Menu, X,
+  FileText, FolderOpen, GraduationCap, Phone,
 } from "lucide-react";
 
 export type PageKey =
-  | "dashboard"
-  | "employees"
-  | "employeeContracts"
-  | "employeeDocuments"
-  | "employeeQualifications"
-  | "emergencyContacts"
-  | "departments"
-  | "attendance"
-  | "leaveManagement"
-  | "payroll"
-  | "recruitment"
-  | "performance"
-  | "selfService"
-  | "finance"
-  | "reports"
-  | "branches"
-  | "rolesPermissions";
+  | "dashboard" | "employees" | "employeeContracts" | "employeeDocuments"
+  | "employeeQualifications" | "emergencyContacts" | "departments"
+  | "attendance" | "leaveManagement" | "payroll" | "recruitment"
+  | "performance" | "selfService" | "finance" | "reports"
+  | "branches" | "rolesPermissions";
 
 interface NavItem {
   key: PageKey;
-  label: string;
+  // ✅ labelKey replaces label — we look up translation at render time
+  labelKey: string;
   icon: React.ElementType;
   path: string;
-  group?: string;
+  group: "mainMenu" | "hrManagement";
 }
 
 const navItems: NavItem[] = [
-  // Main
-  { key: "dashboard",               label: "Dashboard",               icon: LayoutDashboard, path: "/dashboard",                  group: "Main Menu" },
-  { key: "employees",               label: "Employees",               icon: Users,           path: "/employees",                  group: "Main Menu" },
-  { key: "departments",             label: "Departments",             icon: Building2,       path: "/departments",                group: "Main Menu" },
-  { key: "attendance",              label: "Attendance",              icon: Clock,           path: "/attendance",                 group: "Main Menu" },
-  { key: "leaveManagement",         label: "Leave Management",        icon: CalendarOff,     path: "/leave-management",           group: "Main Menu" },
-  { key: "payroll",                 label: "Payroll",                 icon: DollarSign,      path: "/payroll",                   group: "Main Menu" },
-  { key: "recruitment",             label: "Recruitment",             icon: UserSearch,      path: "/recruitment",               group: "Main Menu" },
-  { key: "performance",             label: "Performance",             icon: TrendingUp,      path: "/performance",               group: "Main Menu" },
-  { key: "selfService",             label: "Self Service",            icon: User,            path: "/self-service",              group: "Main Menu" },
-  { key: "finance",                 label: "Finance",                 icon: Wallet,          path: "/finance",                   group: "Main Menu" },
-  { key: "reports",                 label: "Reports",                 icon: BarChart3,       path: "/reports",                   group: "Main Menu" },
-  { key: "branches",                label: "Branches",                icon: GitBranch,       path: "/branches",                  group: "Main Menu" },
-  { key: "rolesPermissions",        label: "Roles & Permissions",     icon: ShieldCheck,     path: "/roles-permissions",         group: "Main Menu" },
+  // Main Menu
+  { key: "dashboard",              labelKey: "sidebar.items.dashboard",              icon: LayoutDashboard, path: "/dashboard",                group: "mainMenu" },
+  { key: "employees",              labelKey: "sidebar.items.employees",              icon: Users,           path: "/employees",                group: "mainMenu" },
+  { key: "departments",            labelKey: "sidebar.items.departments",            icon: Building2,       path: "/departments",              group: "mainMenu" },
+  { key: "attendance",             labelKey: "sidebar.items.attendance",             icon: Clock,           path: "/attendance",               group: "mainMenu" },
+  { key: "leaveManagement",        labelKey: "sidebar.items.leaveManagement",        icon: CalendarOff,     path: "/leave-management",         group: "mainMenu" },
+  { key: "payroll",                labelKey: "sidebar.items.payroll",                icon: DollarSign,      path: "/payroll",                  group: "mainMenu" },
+  { key: "recruitment",            labelKey: "sidebar.items.recruitment",            icon: UserSearch,      path: "/recruitment",              group: "mainMenu" },
+  { key: "performance",            labelKey: "sidebar.items.performance",            icon: TrendingUp,      path: "/performance",              group: "mainMenu" },
+  { key: "selfService",            labelKey: "sidebar.items.selfService",            icon: User,            path: "/self-service",             group: "mainMenu" },
+  { key: "finance",                labelKey: "sidebar.items.finance",                icon: Wallet,          path: "/finance",                  group: "mainMenu" },
+  { key: "reports",                labelKey: "sidebar.items.reports",                icon: BarChart3,       path: "/reports",                  group: "mainMenu" },
+  { key: "branches",               labelKey: "sidebar.items.branches",               icon: GitBranch,       path: "/branches",                 group: "mainMenu" },
+  { key: "rolesPermissions",       labelKey: "sidebar.items.rolesPermissions",       icon: ShieldCheck,     path: "/roles-permissions",        group: "mainMenu" },
   // HR Management
-  { key: "employeeContracts",       label: "Contracts",               icon: FileText,        path: "/employee-contracts",        group: "HR Management" },
-  { key: "employeeDocuments",       label: "Documents",               icon: FolderOpen,      path: "/employee-documents",        group: "HR Management" },
-  { key: "employeeQualifications",  label: "Qualifications",          icon: GraduationCap,   path: "/employee-qualifications",   group: "HR Management" },
-  { key: "emergencyContacts",       label: "Emergency Contacts",      icon: Phone,           path: "/emergency-contacts",        group: "HR Management" },
+  { key: "employeeContracts",      labelKey: "sidebar.items.employeeContracts",      icon: FileText,        path: "/employee-contracts",       group: "hrManagement" },
+  { key: "employeeDocuments",      labelKey: "sidebar.items.employeeDocuments",      icon: FolderOpen,      path: "/employee-documents",       group: "hrManagement" },
+  { key: "employeeQualifications", labelKey: "sidebar.items.employeeQualifications", icon: GraduationCap,   path: "/employee-qualifications",  group: "hrManagement" },
+  { key: "emergencyContacts",      labelKey: "sidebar.items.emergencyContacts",      icon: Phone,           path: "/emergency-contacts",       group: "hrManagement" },
+];
+
+// ✅ group keys map to translation keys, not raw strings
+const groups: { key: "mainMenu" | "hrManagement"; labelKey: string }[] = [
+  { key: "mainMenu",     labelKey: "sidebar.mainMenu" },
+  { key: "hrManagement", labelKey: "sidebar.hrManagement" },
 ];
 
 function getActivePage(pathname: string): PageKey {
@@ -93,13 +73,6 @@ function getActivePage(pathname: string): PageKey {
   return "dashboard";
 }
 
-// Group nav items
-const groups = ["Main Menu", "HR Management"];
-const grouped = groups.map((g) => ({
-  group: g,
-  items: navItems.filter((n) => n.group === g),
-}));
-
 function SidebarContent({
   activePage,
   onNavigate,
@@ -109,6 +82,8 @@ function SidebarContent({
   onNavigate: (path: string) => void;
   setMobileOpen: (open: boolean) => void;
 }) {
+  const { t } = useTranslation("layout"); // ✅ inside component so it re-renders on lang change
+
   return (
     <div className="flex flex-col h-full bg-[#1a1f2e] text-white w-[220px] min-w-[220px]">
       {/* Logo */}
@@ -118,37 +93,43 @@ function SidebarContent({
             <span className="text-white font-bold text-xs">AM</span>
           </div>
           <div>
-            <p className="text-sm font-semibold leading-tight">Arabian Meem</p>
-            <p className="text-[11px] text-white/50">الميم العربية</p>
+            <p className="text-sm font-semibold leading-tight">
+              {t("sidebar.brand.name")}       {/* ✅ */}
+            </p>
+            <p className="text-[11px] text-white/50">
+              {t("sidebar.brand.subtitle")}   {/* ✅ */}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Nav */}
       <nav className="flex-1 py-3 overflow-y-auto">
-        {grouped.map(({ group, items }) => (
-          <div key={group}>
+        {groups.map(({ key: groupKey, labelKey: groupLabelKey }) => (
+          <div key={groupKey}>
             <p className="px-4 py-1.5 text-[10px] text-white/30 uppercase tracking-widest font-medium mt-2">
-              {group}
+              {t(groupLabelKey)} {/* ✅ translated group header */}
             </p>
-            {items.map(({ key, label, icon: Icon, path }) => {
-              const isActive = activePage === key;
-              return (
-                <button
-                  key={key}
-                  onClick={() => { onNavigate(path); setMobileOpen(false); }}
-                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-all text-left ${
-                    isActive
-                      ? "bg-[#4F8EF7]/20 text-[#4F8EF7] font-medium border-r-2 border-[#4F8EF7]"
-                      : "text-white/60 hover:bg-white/5 hover:text-white/90"
-                  }`}
-                >
-                  <Icon size={16} className="shrink-0" />
-                  <span className="flex-1 truncate">{label}</span>
-                  {isActive && <ChevronRight size={13} className="shrink-0 opacity-60" />}
-                </button>
-              );
-            })}
+            {navItems
+              .filter((n) => n.group === groupKey)
+              .map(({ key, labelKey, icon: Icon, path }) => {
+                const isActive = activePage === key;
+                return (
+                  <button
+                    key={key}
+                    onClick={() => { onNavigate(path); setMobileOpen(false); }}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-all text-left ${
+                      isActive
+                        ? "bg-[#4F8EF7]/20 text-[#4F8EF7] font-medium border-r-2 border-[#4F8EF7]"
+                        : "text-white/60 hover:bg-white/5 hover:text-white/90"
+                    }`}
+                  >
+                    <Icon size={16} className="shrink-0" />
+                    <span className="flex-1 truncate">{t(labelKey)}</span> {/* ✅ */}
+                    {isActive && <ChevronRight size={13} className="shrink-0 opacity-60" />}
+                  </button>
+                );
+              })}
           </div>
         ))}
       </nav>
@@ -160,8 +141,12 @@ function SidebarContent({
             MM
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-medium text-white truncate">Mohamed Morsy</p>
-            <p className="text-[10px] text-white/40 truncate">Admin</p>
+            <p className="text-xs font-medium text-white truncate">
+              {t("sidebar.user.name")} {/* ✅ */}
+            </p>
+            <p className="text-[10px] text-white/40 truncate">
+              {t("sidebar.user.role")} {/* ✅ */}
+            </p>
           </div>
         </div>
       </div>
@@ -187,7 +172,7 @@ export default function Sidebar({
         <SidebarContent activePage={activePage} onNavigate={navigate} setMobileOpen={setMobileOpen} />
       </div>
 
-      {/* Mobile toggle button */}
+      {/* Mobile toggle */}
       <button
         className="lg:hidden fixed top-3 left-4 z-50 bg-[#1a1f2e] text-white p-2 rounded-xl shadow-lg"
         onClick={() => setMobileOpen(!mobileOpen)}

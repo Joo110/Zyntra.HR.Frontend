@@ -1,5 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Props { onClose: () => void }
 
@@ -24,28 +25,46 @@ function Field({ label, placeholder, textarea }: { label: string; placeholder?: 
 }
 
 export default function AddEmergencyContactModal({ onClose }: Props) {
+  const { t } = useTranslation("employees");
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         <div className="flex items-start justify-between px-6 pt-5 pb-3 border-b border-gray-100">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">Add Emergency Contact</h2>
-            <p className="text-xs text-gray-400">Add a new emergency contact for an employee</p>
+            <h2 className="text-lg font-bold text-gray-900">
+              {t("emergencyContact.modal.title")}
+            </h2>
+            <p className="text-xs text-gray-400">
+              {t("emergencyContact.modal.description")}
+            </p>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            <X size={18} />
+          </button>
         </div>
 
         <div className="px-6 py-5 space-y-5">
           {/* Employee Info */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-800 mb-3">Employee Information</h3>
+            <h3 className="text-sm font-semibold text-gray-800 mb-3">
+              {t("emergencyContact.sections.employeeInfo")}
+            </h3>
             <div className="grid grid-cols-3 gap-3">
-              <Field label="Employee ID *" placeholder="e.g. EMP-1024" />
-              <Field label="Employee Name *" placeholder="e.g. Ahmed Hassan" />
+              <Field
+                label={t("emergencyContact.fields.employeeId")}
+                placeholder={t("emergencyContact.placeholders.employeeId")}
+              />
+              <Field
+                label={t("emergencyContact.fields.employeeName")}
+                placeholder={t("emergencyContact.placeholders.employeeName")}
+              />
               <div>
-                <label className="text-xs text-gray-500 mb-1 block">Department *</label>
+                <label className="text-xs text-gray-500 mb-1 block">
+                  {t("employee.fields.department")} *
+                </label>
                 <select className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-100 bg-white">
-                  <option value="">Select</option>
+                  <option value="">{t("emergencyContact.placeholders.selectDepartment")}</option>
                   <option>Engineering</option>
                   <option>IT Technology</option>
                   <option>HR</option>
@@ -57,26 +76,57 @@ export default function AddEmergencyContactModal({ onClose }: Props) {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-800 mb-3">Emergency Contact Information</h3>
+            <h3 className="text-sm font-semibold text-gray-800 mb-3">
+              {t("emergencyContact.sections.contactInfo")}
+            </h3>
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Contact Name *" placeholder="e.g. yousef massoud" />
-                <Field label="Relationship *" placeholder="" />
+                <Field
+                  label={`${t("employee.fields.contactName")} *`}
+                  placeholder={t("emergencyContact.placeholders.contactName")}
+                />
+                <Field
+                  label={`${t("employee.fields.relationship")} *`}
+                  placeholder=""
+                />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Primary Phone *" placeholder="e.g. +571 4 123 4567" />
-                <Field label="Alternate Phone (Optional)" placeholder="e.g. +571 4 123 4567" />
+                <Field
+                  label={`${t("emergencyContact.fields.primaryPhone")} *`}
+                  placeholder={t("emergencyContact.placeholders.primaryPhone")}
+                />
+                <Field
+                  label={t("emergencyContact.fields.alternatePhone")}
+                  placeholder={t("emergencyContact.placeholders.alternatePhone")}
+                />
               </div>
-              <Field label="Email Address *" placeholder="e.g. contact@email.com" />
-              <Field label="Address" placeholder="Villa 42, Al Wasl District, Dubai, UAE" />
-              <Field label="Notes (Optional)" placeholder="Any additional information..." textarea />
+              <Field
+                label={`${t("emergencyContact.fields.email")} *`}
+                placeholder={t("emergencyContact.placeholders.email")}
+              />
+              <Field
+                label={t("employee.fields.address")}
+                placeholder={t("emergencyContact.placeholders.address")}
+              />
+              <Field
+                label={t("emergencyContact.fields.notes")}
+                placeholder={t("emergencyContact.placeholders.notes")}
+                textarea
+              />
             </div>
           </div>
         </div>
 
         <div className="flex justify-end gap-3 px-6 pb-5">
-          <button onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition">Cancel</button>
-          <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">Add Contact</button>
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200 transition"
+          >
+            {t("employee.cancel")}
+          </button>
+          <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+            {t("emergencyContact.modal.addButton")}
+          </button>
         </div>
       </div>
     </div>

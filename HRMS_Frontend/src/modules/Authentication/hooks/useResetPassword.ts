@@ -1,21 +1,25 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+
 import {
   ResetPasswordFormValues,
   ResetPasswordFormErrors,
   ResetPasswordFormTouched,
+  FieldStatus,
 } from "../types/auth.types";
+
 import {
   validateNewPassword,
   validateConfirmPassword,
 } from "../schemas/Forgotpasswordschema";
-import { resetPasswordService } from "../services/authentication.service";
-import type { FieldStatus } from "../types/auth.types";
 
-// ─── Hook ─────────────────────────────────────────────────────────────────────
-export function useResetPasswordForm() {
+import { resetPasswordService } from "../services/authentication.service";
+
+// ─── Hook ───────────────────────────────────────────────
+export function useResetPasswordForm(t: any) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
   const token = searchParams.get("token") ?? "";
 
   const [values, setValues] = useState<ResetPasswordFormValues>({
@@ -36,10 +40,11 @@ export function useResetPasswordForm() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [apiError, setApiError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // ── Derived ───────────────────────────────────────────────────────────────
+  // ── Derived ─────────────────────────────────────────────
   const passwordStatus: FieldStatus =
     !touched.password ? "idle" : errors.password ? "error" : "success";
 
@@ -50,26 +55,37 @@ export function useResetPasswordForm() {
       ? "error"
       : "success";
 
-  // ── Handlers ──────────────────────────────────────────────────────────────
+  // ── Handlers ────────────────────────────────────────────
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
+
     setValues((prev) => ({ ...prev, password: val }));
+
     if (touched.password) {
-      setErrors((prev) => ({ ...prev, password: validateNewPassword(val) }));
+      setErrors((prev) => ({
+        ...prev,
+        password: validateNewPassword(val, t),
+      }));
     }
+
     if (touched.confirmPassword) {
       setErrors((prev) => ({
         ...prev,
-        confirmPassword: validateConfirmPassword(val, values.confirmPassword),
+        confirmPassword: validateConfirmPassword(
+          val,
+          values.confirmPassword,
+          t
+        ),
       }));
     }
   };
 
   const handlePasswordBlur = () => {
     setTouched((prev) => ({ ...prev, password: true }));
+
     setErrors((prev) => ({
       ...prev,
-      password: validateNewPassword(values.password),
+      password: validateNewPassword(values.password, t),
     }));
   };
 
@@ -77,59 +93,89 @@ export function useResetPasswordForm() {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const val = e.target.value;
+
     setValues((prev) => ({ ...prev, confirmPassword: val }));
+
     if (touched.confirmPassword) {
       setErrors((prev) => ({
         ...prev,
-        confirmPassword: validateConfirmPassword(values.password, val),
+        confirmPassword: validateConfirmPassword(
+          values.password,
+          val,
+          t
+        ),
       }));
     }
   };
 
   const handleConfirmPasswordBlur = () => {
     setTouched((prev) => ({ ...prev, confirmPassword: true }));
+
     setErrors((prev) => ({
       ...prev,
       confirmPassword: validateConfirmPassword(
         values.password,
-        values.confirmPassword
+        values.confirmPassword,
+        t
       ),
     }));
   };
 
-  const toggleShowPassword = () => setShowPassword((prev) => !prev);
+  // ── Toggles ─────────────────────────────────────────────
+  const toggleShowPassword = () =>
+    setShowPassword((prev) => !prev);
+
   const toggleShowConfirmPassword = () =>
     setShowConfirmPassword((prev) => !prev);
 
+  // ── Submit ──────────────────────────────────────────────
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     setApiError("");
     setSuccessMessage("");
 
-    // Mark all fields as touched
-    setTouched({ password: true, confirmPassword: true });
+    setTouched({
+      password: true,
+      confirmPassword: true,
+    });
 
-    const passwordError = validateNewPassword(values.password);
-    const confirmPasswordError = validateConfirmPassword(
+    const passwordError = validateNewPassword(values.password, t);
+    const confirmError = validateConfirmPassword(
       values.password,
-      values.confirmPassword
+      values.confirmPassword,
+      t
     );
-    setErrors({ password: passwordError, confirmPassword: confirmPasswordError });
 
-    if (passwordError || confirmPasswordError) return;
+    setErrors({
+      password: passwordError,
+      confirmPassword: confirmError,
+    });
+
+    if (passwordError || confirmError) return;
 
     if (!token) {
-      setApiError("Invalid or expired reset link. Please request a new one.");
+      setApiError(
+        t("resetPassword.errors.invalidToken") ||
+          "Invalid or expired reset link."
+      );
       return;
     }
 
     setLoading(true);
+
     try {
-      await resetPasswordService(token, values.password);
-      setSuccessMessage("Password updated successfully!");
+      await resetPasswordService(token, values.password, t);
+
+      setSuccessMessage(
+        t("resetPassword.success.updated") || "Password updated successfully!"
+      );
+
       setTimeout(() => navigate("/login"), 2000);
     } catch (err: any) {
-      setApiError(err.message || "Something went wrong.");
+      setApiError(
+        err.message || t("resetPassword.errors.generic")
+      );
     } finally {
       setLoading(false);
     }

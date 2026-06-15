@@ -5,18 +5,31 @@ import {
   LoginFormTouched,
   FieldStatus,
 } from "../types/auth.types";
-import { validateEmail, validatePassword, getPasswordStrength, REGEX } from "../schemas/loginSchema";
-import { loginService, forgotPasswordService } from "../services/authentication.service";
+
+import {
+  validateEmail,
+  validatePassword,
+  getPasswordStrength,
+  REGEX,
+} from "../schemas/loginSchema";
+
+import {
+  loginService,
+  forgotPasswordService,
+} from "../services/authentication.service";
+
 import { useNavigate } from "react-router-dom";
-// ─── Hook ─────────────────────────────────────────────────────────────────────
-export function useLoginForm() {
+
+// ─── Hook ─────────────────────────────────────────────────────────
+export function useLoginForm(t: any) {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState<LoginFormValues>({
     email: "",
     password: "",
     remember: false,
-    
   });
-const navigate = useNavigate();
+
   const [errors, setErrors] = useState<LoginFormErrors>({
     email: "",
     password: "",
@@ -31,7 +44,7 @@ const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
 
-  // ── Derived ───────────────────────────────────────────────────────────────
+  // ── Derived ───────────────────────────────────────────────
   const emailStatus: FieldStatus =
     !touched.email ? "idle" : errors.email ? "error" : "success";
 
@@ -39,86 +52,120 @@ const navigate = useNavigate();
     !touched.password ? "idle" : errors.password ? "error" : "success";
 
   const passwordStrength =
-    values.password.length > 0 ? getPasswordStrength(values.password) : null;
+    values.password.length > 0
+      ? getPasswordStrength(values.password, t)
+      : null;
 
-  // ── Handlers ──────────────────────────────────────────────────────────────
+  // ── Handlers ──────────────────────────────────────────────
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
+
     setValues((prev) => ({ ...prev, email: val }));
+
     if (touched.email) {
-      setErrors((prev) => ({ ...prev, email: validateEmail(val) }));
+      setErrors((prev) => ({
+        ...prev,
+        email: validateEmail(val, t),
+      }));
     }
   };
 
   const handleEmailBlur = () => {
     setTouched((prev) => ({ ...prev, email: true }));
-    setErrors((prev) => ({ ...prev, email: validateEmail(values.email) }));
+
+    setErrors((prev) => ({
+      ...prev,
+      email: validateEmail(values.email, t),
+    }));
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
+
     setValues((prev) => ({ ...prev, password: val }));
+
     if (touched.password) {
-      setErrors((prev) => ({ ...prev, password: validatePassword(val) }));
+      setErrors((prev) => ({
+        ...prev,
+        password: validatePassword(val, t),
+      }));
     }
   };
 
   const handlePasswordBlur = () => {
     setTouched((prev) => ({ ...prev, password: true }));
-    setErrors((prev) => ({ ...prev, password: validatePassword(values.password) }));
+
+    setErrors((prev) => ({
+      ...prev,
+      password: validatePassword(values.password, t),
+    }));
   };
 
   const handleRememberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => ({ ...prev, remember: e.target.checked }));
   };
 
-  const toggleShowPassword = () => setShowPassword((prev) => !prev);
+  const toggleShowPassword = () =>
+    setShowPassword((prev) => !prev);
 
+  // ── Forgot Password ───────────────────────────────────────
   const handleForgotPassword = async () => {
     if (!values.email.trim()) {
-      alert("Enter your email first, then click Forgot Password.");
+      setApiError(t("login.errors.enterEmailFirst"));
       return;
     }
+
     if (!REGEX.email.test(values.email.trim())) {
-      alert("Please enter a valid email to reset your password.");
+      setApiError(t("login.errors.invalidEmail"));
       return;
     }
+
     try {
       await forgotPasswordService(values.email);
-      alert(`Reset link sent to: ${values.email.trim()}`);
+
+      setApiError(
+        t("login.success.resetLinkSent", {
+          email: values.email.trim(),
+        })
+      );
     } catch (err: any) {
-      alert(err.message);
+      setApiError(err.message || t("login.errors.generic"));
     }
   };
 
+  // ── Submit ────────────────────────────────────────────────
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setApiError("");
 
-    // Mark all fields as touched
     setTouched({ email: true, password: true });
 
-    const emailError = validateEmail(values.email);
-    const passwordError = validatePassword(values.password);
-    setErrors({ email: emailError, password: passwordError });
+    const emailError = validateEmail(values.email, t);
+    const passwordError = validatePassword(values.password, t);
+
+    setErrors({
+      email: emailError,
+      password: passwordError,
+    });
 
     if (emailError || passwordError) return;
 
     setLoading(true);
+
     try {
-      const response = await loginService({
-        email: values.email,
-        password: values.password,
-      });
+      const response = await loginService(
+        {
+          email: values.email,
+          password: values.password,
+        },
+        t
+      );
 
-console.log("Login success:", response);
+      console.log(t("login.logs.success"), response);
 
-// مثال: لو عندك token
-// localStorage.setItem("token", response.token);
-
-navigate("/dashboard");      // TODO: save token, redirect
+      navigate("/dashboard");
     } catch (err: any) {
-      setApiError(err.message || "Something went wrong.");
+      setApiError(err.message || t("login.errors.generic"));
     } finally {
       setLoading(false);
     }

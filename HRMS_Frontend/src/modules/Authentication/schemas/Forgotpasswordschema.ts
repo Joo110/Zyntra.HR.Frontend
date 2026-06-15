@@ -3,7 +3,7 @@ import { validateEmail } from "./loginSchema";
 // ─── Re-export shared validator ───────────────────────────────────────────────
 export { validateEmail };
 
-// ─── Password Validation (for Reset Password) ─────────────────────────────────
+// ─── Password Regex ───────────────────────────────────────────────
 const PASSWORD_REGEX = {
   minLength: /.{8,}/,
   hasUpper: /[A-Z]/,
@@ -12,26 +12,48 @@ const PASSWORD_REGEX = {
   hasSpecial: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
 };
 
-export function validateNewPassword(value: string): string {
-  if (!value) return "Password is required.";
-  if (!PASSWORD_REGEX.minLength.test(value))
-    return "Password must be at least 8 characters.";
-  if (!PASSWORD_REGEX.hasUpper.test(value))
-    return "Password must contain at least one uppercase letter (A-Z).";
-  if (!PASSWORD_REGEX.hasLower.test(value))
-    return "Password must contain at least one lowercase letter (a-z).";
-  if (!PASSWORD_REGEX.hasNumber.test(value))
-    return "Password must contain at least one number (0-9).";
-  if (!PASSWORD_REGEX.hasSpecial.test(value))
-    return "Password must contain at least one special character (!@#$%...).";
+// ─── New Password Validation ───────────────────────────────────────
+export function validateNewPassword(value: string, t: any): string {
+  if (!value) {
+    return t("validation.password.required");
+  }
+
+  if (!PASSWORD_REGEX.minLength.test(value)) {
+    return t("validation.password.minLength");
+  }
+
+  if (!PASSWORD_REGEX.hasUpper.test(value)) {
+    return t("validation.password.hasUpper");
+  }
+
+  if (!PASSWORD_REGEX.hasLower.test(value)) {
+    return t("validation.password.hasLower");
+  }
+
+  if (!PASSWORD_REGEX.hasNumber.test(value)) {
+    return t("validation.password.hasNumber");
+  }
+
+  if (!PASSWORD_REGEX.hasSpecial.test(value)) {
+    return t("validation.password.hasSpecial");
+  }
+
   return "";
 }
 
+// ─── Confirm Password Validation ───────────────────────────────────
 export function validateConfirmPassword(
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
+  t: any
 ): string {
-  if (!confirmPassword) return "Please confirm your password.";
-  if (password !== confirmPassword) return "Passwords do not match.";
+  if (!confirmPassword) {
+    return t("validation.confirmPassword.required");
+  }
+
+  if (password !== confirmPassword) {
+    return t("validation.confirmPassword.match");
+  }
+
   return "";
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, Outlet, useParams, useNavigate } from "react-router-dom";
 import { PencilIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 import {
   EmployeeDTO,
   EmployeeStatus,
@@ -13,16 +14,6 @@ type EmployeeProfileProps = {
   onEdit?: (emp: EmployeeDTO) => void;
 };
 
-const tabs = [
-  { label: "Personal info", path: "personal-info" },
-  { label: "Employment",    path: "employment"    },
-  { label: "Documents",     path: "documents"     },
-  { label: "Attendance",    path: "attendance"    },
-  { label: "Payroll",       path: "payroll"       },
-  { label: "Performance",   path: "performance"   },
-];
-
-// Fallback mock يطابق EmployeeDTO بالكامل
 function makeMockEmployee(id: string): EmployeeDTO {
   return {
     id,
@@ -60,6 +51,7 @@ export default function EmployeeProfile({
   onBack,
   onEdit,
 }: EmployeeProfileProps) {
+  const { t } = useTranslation("employees");
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -77,7 +69,16 @@ export default function EmployeeProfile({
     .filter(Boolean)
     .join(" ");
 
-  const statusLabel = EMPLOYEE_STATUS_LABELS[resolvedEmployee.status];
+  const statusKey = EMPLOYEE_STATUS_LABELS[resolvedEmployee.status]?.toLowerCase().replace(" ", "");
+
+  const tabs = [
+    { label: t("employeeProfile.tabs.personal"),    path: "personal-info" },
+    { label: t("employeeProfile.tabs.employment"),  path: "employment"    },
+    { label: t("employeeProfile.tabs.documents"),   path: "documents"     },
+    { label: t("employeeProfile.tabs.attendance"),  path: "attendance"    },
+    { label: t("employeeProfile.tabs.payroll"),     path: "payroll"       },
+    { label: t("employeeProfile.tabs.performance"), path: "performance"   },
+  ];
 
   return (
     <div className="min-h-screen bg-[#f7f8fc] p-4 md:p-8">
@@ -87,20 +88,20 @@ export default function EmployeeProfile({
         <div className="flex items-start justify-between px-6 pt-6 pb-4">
           <div>
             <h1 className="text-xl font-bold text-gray-900">
-              {fullName || "Employee"}
+              {fullName || t("employeeProfile.fallbackName")}
             </h1>
             <p className="text-sm text-gray-500 mt-0.5">
-              ID: {resolvedEmployee.id}
+              {t("employeeProfile.idLabel", { id: resolvedEmployee.id })}
               {resolvedEmployee.email ? ` • ${resolvedEmployee.email}` : ""}
               {resolvedEmployee.phone ? ` • ${resolvedEmployee.phone}` : ""}
             </p>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xs font-medium bg-green-100 text-green-700 px-2.5 py-0.5 rounded-full">
-                {statusLabel}
+                {t(`enums.employeeStatus.${statusKey}`)}
               </span>
               {resolvedEmployee.contractType === 0 && (
                 <span className="text-xs font-medium bg-blue-100 text-blue-700 px-2.5 py-0.5 rounded-full">
-                  Full Time
+                  {t("enums.contractType.fullTime")}
                 </span>
               )}
             </div>
@@ -112,14 +113,14 @@ export default function EmployeeProfile({
               className="flex items-center gap-1.5 text-sm font-medium text-gray-700 border border-gray-200 rounded-lg px-3 py-2 hover:bg-gray-50 transition"
             >
               <ArrowLeftIcon className="w-4 h-4" />
-              Back
+              {t("employeeProfile.back")}
             </button>
             <button
               onClick={() => handleEdit(resolvedEmployee)}
               className="flex items-center gap-1.5 text-sm font-medium text-gray-700 border border-gray-200 rounded-lg px-3 py-2 hover:bg-gray-50 transition"
             >
               <PencilIcon className="w-4 h-4" />
-              Edit profile
+              {t("employeeProfile.editProfile")}
             </button>
           </div>
         </div>

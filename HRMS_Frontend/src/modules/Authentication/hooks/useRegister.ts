@@ -5,6 +5,7 @@ import {
   RegisterFormTouched,
   FieldStatus,
 } from "../types/auth.types";
+
 import {
   validateName,
   validateEmail,
@@ -12,10 +13,11 @@ import {
   validateConfirmPassword,
   getPasswordStrength,
 } from "../schemas/registerSchema";
+
 import { registerService } from "../services/authentication.service";
 
-// ─── Hook ─────────────────────────────────────────────────────────────────────
-export function useRegisterForm() {
+// ─── Hook ───────────────────────────────────────────────
+export function useRegisterForm(t: any) {
   const [values, setValues] = useState<RegisterFormValues>({
     name: "",
     email: "",
@@ -42,7 +44,7 @@ export function useRegisterForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [apiError, setApiError] = useState("");
 
-  // ── Derived field statuses ─────────────────────────────────────────────────
+  // ── Status Helper ───────────────────────────────────────
   const getStatus = (field: keyof RegisterFormTouched): FieldStatus =>
     !touched[field] ? "idle" : errors[field] ? "error" : "success";
 
@@ -52,70 +54,128 @@ export function useRegisterForm() {
   const confirmPasswordStatus = getStatus("confirmPassword");
 
   const passwordStrength =
-    values.password.length > 0 ? getPasswordStrength(values.password) : null;
+    values.password.length > 0
+      ? getPasswordStrength(values.password, t)
+      : null;
 
-  // ── Change Handlers ────────────────────────────────────────────────────────
+  // ── Change Handler Factory ─────────────────────────────
   const handleChange =
     (field: keyof RegisterFormValues, validator: (val: string) => string) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
+
       setValues((prev) => ({ ...prev, [field]: val }));
+
       if (touched[field]) {
-        setErrors((prev) => ({ ...prev, [field]: validator(val) }));
+        setErrors((prev) => ({
+          ...prev,
+          [field]: validator(val),
+        }));
       }
-      // Re-validate confirmPassword live when password changes
+
+      // live confirm password validation
       if (field === "password" && touched.confirmPassword) {
         setErrors((prev) => ({
           ...prev,
-          confirmPassword: validateConfirmPassword(val, values.confirmPassword),
+          confirmPassword: validateConfirmPassword(
+            val,
+            values.confirmPassword,
+            t
+          ),
         }));
       }
     };
 
-  const handleNameChange = handleChange("name", validateName);
-  const handleEmailChange = handleChange("email", validateEmail);
-  const handlePasswordChange = handleChange("password", validatePassword);
+  const handleNameChange = handleChange("name", (v) =>
+    validateName(v, t)
+  );
+
+  const handleEmailChange = handleChange("email", (v) =>
+    validateEmail(v, t)
+  );
+
+  const handlePasswordChange = handleChange("password", (v) =>
+    validatePassword(v, t)
+  );
+
   const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
+
     setValues((prev) => ({ ...prev, confirmPassword: val }));
+
     if (touched.confirmPassword) {
       setErrors((prev) => ({
         ...prev,
-        confirmPassword: validateConfirmPassword(values.password, val),
+        confirmPassword: validateConfirmPassword(
+          values.password,
+          val,
+          t
+        ),
       }));
     }
   };
 
-  // ── Blur Handlers ──────────────────────────────────────────────────────────
+  // ── Blur Handler ───────────────────────────────────────
   const handleBlur =
-    (field: keyof RegisterFormTouched, validator: () => string) => () => {
+    (field: keyof RegisterFormTouched, validator: () => string) =>
+    () => {
       setTouched((prev) => ({ ...prev, [field]: true }));
-      setErrors((prev) => ({ ...prev, [field]: validator() }));
+
+      setErrors((prev) => ({
+        ...prev,
+        [field]: validator(),
+      }));
     };
 
-  const handleNameBlur = handleBlur("name", () => validateName(values.name));
-  const handleEmailBlur = handleBlur("email", () => validateEmail(values.email));
-  const handlePasswordBlur = handleBlur("password", () => validatePassword(values.password));
-  const handleConfirmPasswordBlur = handleBlur("confirmPassword", () =>
-    validateConfirmPassword(values.password, values.confirmPassword)
+  const handleNameBlur = handleBlur("name", () =>
+    validateName(values.name, t)
   );
 
-  // ── Toggles ────────────────────────────────────────────────────────────────
-  const toggleShowPassword = () => setShowPassword((prev) => !prev);
-  const toggleShowConfirmPassword = () => setShowConfirmPassword((prev) => !prev);
+  const handleEmailBlur = handleBlur("email", () =>
+    validateEmail(values.email, t)
+  );
 
-  // ── Submit ─────────────────────────────────────────────────────────────────
+  const handlePasswordBlur = handleBlur("password", () =>
+    validatePassword(values.password, t)
+  );
+
+  const handleConfirmPasswordBlur = handleBlur(
+    "confirmPassword",
+    () =>
+      validateConfirmPassword(
+        values.password,
+        values.confirmPassword,
+        t
+      )
+  );
+
+  // ── Toggles ────────────────────────────────────────────
+  const toggleShowPassword = () =>
+    setShowPassword((prev) => !prev);
+
+  const toggleShowConfirmPassword = () =>
+    setShowConfirmPassword((prev) => !prev);
+
+  // ── Submit ─────────────────────────────────────────────
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setApiError("");
 
-    // Mark all as touched
-    setTouched({ name: true, email: true, password: true, confirmPassword: true });
+    setTouched({
+      name: true,
+      email: true,
+      password: true,
+      confirmPassword: true,
+    });
 
-    const nameError        = validateName(values.name);
-    const emailError       = validateEmail(values.email);
-    const passwordError    = validatePassword(values.password);
-    const confirmError     = validateConfirmPassword(values.password, values.confirmPassword);
+    const nameError = validateName(values.name, t);
+    const emailError = validateEmail(values.email, t);
+    const passwordError = validatePassword(values.password, t);
+    const confirmError = validateConfirmPassword(
+      values.password,
+      values.confirmPassword,
+      t
+    );
 
     setErrors({
       name: nameError,
@@ -124,20 +184,24 @@ export function useRegisterForm() {
       confirmPassword: confirmError,
     });
 
-    if (nameError || emailError || passwordError || confirmError) return;
+    if (nameError || emailError || passwordError || confirmError)
+      return;
 
     setLoading(true);
-    try {
-      const response = await registerService({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      });
 
-      console.log("Register success:", response);
-      // TODO: save token, redirect
+    try {
+      const response = await registerService(
+        {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        },
+        t
+      );
+
+      console.log(t("register.logs.success"), response);
     } catch (err: any) {
-      setApiError(err.message || "Something went wrong.");
+      setApiError(err.message || t("register.errors.generic"));
     } finally {
       setLoading(false);
     }

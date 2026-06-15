@@ -1,11 +1,5 @@
 import React from "react";
-
-const kpis = [
-  { label: "Code Quality", value: 92 },
-  { label: "Delivery on Time", value: 88 },
-  { label: "Team Collaboration", value: 95 },
-  { label: "Innovation", value: 85 },
-];
+import { useTranslation } from "react-i18next";
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -24,7 +18,6 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-// Simple sparkline SVG trend chart
 function TrendChart() {
   const points = [
     3.2, 3.0, 3.5, 3.8, 3.4, 3.6, 3.9, 4.0, 3.7, 4.1, 4.3, 4.0, 4.2, 4.4, 4.3, 4.5,
@@ -37,8 +30,7 @@ function TrendChart() {
     x: (i / (points.length - 1)) * w,
     y: h - ((p - minVal) / (maxVal - minVal)) * h,
   }));
-  const pathD =
-    coords.map((c, i) => `${i === 0 ? "M" : "L"} ${c.x} ${c.y}`).join(" ");
+  const pathD = coords.map((c, i) => `${i === 0 ? "M" : "L"} ${c.x} ${c.y}`).join(" ");
   const fillD = `${pathD} L ${w} ${h} L 0 ${h} Z`;
 
   return (
@@ -56,35 +48,50 @@ function TrendChart() {
 }
 
 export default function PerformanceTab() {
+  const { t } = useTranslation("employees");
+
+  const kpis = [
+    { label: t("performanceTab.kpis.codeQuality"), value: 92 },
+    { label: t("performanceTab.kpis.deliveryOnTime"), value: 88 },
+    { label: t("performanceTab.kpis.teamCollaboration"), value: 95 },
+    { label: t("performanceTab.kpis.innovation"), value: 85 },
+  ];
+
   return (
     <div className="space-y-5">
       {/* Header row */}
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold text-gray-800">Performance Overview</h2>
+        <h2 className="text-base font-semibold text-gray-800">
+          {t("performanceTab.title")}
+        </h2>
         <button className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-          Initiate New Review
+          {t("performanceTab.initiateReview")}
         </button>
       </div>
 
       {/* Current Month Breakdown */}
       <div className="border border-gray-100 rounded-xl overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-100">
-          <p className="text-sm font-medium text-gray-700">Current Month Breakdown</p>
+          <p className="text-sm font-medium text-gray-700">
+            {t("performanceTab.currentMonthBreakdown")}
+          </p>
         </div>
 
         {/* Latest Review Card */}
         <div className="bg-gray-900 rounded-xl m-4 p-5 text-white">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-sm font-semibold">Latest Performance Review</p>
+            <p className="text-sm font-semibold">{t("performanceTab.latestReview")}</p>
             <span className="text-xs text-gray-400">Q1 2026</span>
           </div>
           <StarRating rating={4.5} />
           <p className="text-2xl font-bold mt-1">
             4.5 <span className="text-base font-normal text-gray-400">/ 5.0</span>
           </p>
-          <p className="text-xs text-gray-400 mb-4">Exceeds Expectations</p>
+          <p className="text-xs text-gray-400 mb-4">{t("performanceTab.exceedsExpectations")}</p>
 
-          <p className="text-xs text-gray-400 font-medium mb-3">Key Performance Indicators</p>
+          <p className="text-xs text-gray-400 font-medium mb-3">
+            {t("performanceTab.kpiLabel")}
+          </p>
           <div className="space-y-2.5">
             {kpis.map((kpi) => (
               <div key={kpi.label}>
@@ -109,10 +116,12 @@ export default function PerformanceTab() {
         {/* Performance Trend */}
         <div className="border border-gray-100 rounded-xl p-4">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-semibold text-gray-800">Performance Trend</p>
+            <p className="text-sm font-semibold text-gray-800">
+              {t("performanceTab.trend.title")}
+            </p>
             <div className="flex items-center gap-1.5 text-xs text-gray-500">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block" />
-              Rating
+              {t("performanceTab.trend.rating")}
             </div>
           </div>
           <TrendChart />
@@ -125,21 +134,22 @@ export default function PerformanceTab() {
 
         {/* Manager Comments */}
         <div className="border border-gray-100 rounded-xl p-4">
-          <p className="text-sm font-semibold text-gray-800 mb-3">Manager Comments</p>
+          <p className="text-sm font-semibold text-gray-800 mb-3">
+            {t("performanceTab.managerComments.title")}
+          </p>
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white text-xs font-bold">
               OK
             </div>
             <div>
               <p className="text-sm font-semibold text-gray-800">Omar Khalil Ibrahim</p>
-              <p className="text-xs text-gray-400">Engineering Manager • March 15, 2026</p>
+              <p className="text-xs text-gray-400">
+                {t("performanceTab.managerComments.role")} • March 15, 2026
+              </p>
             </div>
           </div>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Ahmed has consistently demonstrated exceptional technical skills and leadership qualities.
-            His contributions to the team's recent projects have been invaluable. He mentors junior
-            developers effectively and maintains high code quality standards. Looking forward to
-            seeing his continued growth in the next quarter.
+            {t("performanceTab.managerComments.body")}
           </p>
         </div>
       </div>

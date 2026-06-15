@@ -8,13 +8,19 @@ import {
   ForgotPasswordResponse,
 } from "../types/auth.types";
 
-// ─── Base URL ────────────────────────────────────────────────────────────────
+// ─── Base URL ───────────────────────────────────────────────
 const BASE_URL =
   import.meta.env.VITE_API_URL ?? "https://localhost:57334/api/v1";
 
-// ─── Login ────────────────────────────────────────────────────────────────────
+// ─── Helper: Safe JSON parsing ──────────────────────────────
+async function safeJson(response: Response) {
+  return response.json().catch(() => ({}));
+}
+
+// ─── Login Service ───────────────────────────────────────────
 export async function loginService(
-  credentials: Pick<LoginFormValues, "email" | "password">
+  credentials: Pick<LoginFormValues, "email" | "password">,
+  t?: any
 ): Promise<LoginResponse> {
   const response = await fetch(`${BASE_URL}/Auth/login`, {
     method: "POST",
@@ -25,20 +31,21 @@ export async function loginService(
     }),
   });
 
-  const json = await response.json().catch(() => ({}));
+  const json = await safeJson(response);
 
   if (!response.ok) {
-    throw new Error(json?.message || "Login failed. Please try again.");
+    throw new Error(
+      json?.message || t?.("auth.errors.loginFailed") || "Login failed."
+    );
   }
 
-  // ✅ IMPORTANT: backend returns data.accessToken
   const token = json?.data?.accessToken;
   const role = json?.data?.roles?.[0];
 
   if (token) {
     Cookies.set("token", token, {
       expires: 7,
-      secure: false, // ⚠️ مهم للـ localhost
+      secure: false,
       sameSite: "lax",
     });
   }
@@ -54,9 +61,10 @@ export async function loginService(
   return json;
 }
 
-// ─── Forgot Password ──────────────────────────────────────────────────────────
+// ─── Forgot Password Service ────────────────────────────────
 export async function forgotPasswordService(
-  email: string
+  email: string,
+  t?: any
 ): Promise<ForgotPasswordResponse> {
   const response = await fetch(`${BASE_URL}/Auth/forgot-password`, {
     method: "POST",
@@ -64,18 +72,23 @@ export async function forgotPasswordService(
     body: JSON.stringify({ email: email.trim() }),
   });
 
-  const json = await response.json().catch(() => ({}));
+  const json = await safeJson(response);
 
   if (!response.ok) {
-    throw new Error(json?.message || "Failed to send reset email.");
+    throw new Error(
+      json?.message ||
+        t?.("auth.errors.forgotPasswordFailed") ||
+        "Failed to send reset email."
+    );
   }
 
   return json;
 }
 
-// ─── Register ─────────────────────────────────────────────────────────────────
+// ─── Register Service ───────────────────────────────────────
 export async function registerService(
-  data: Omit<RegisterFormValues, "confirmPassword">
+  data: Omit<RegisterFormValues, "confirmPassword">,
+  t?: any
 ): Promise<RegisterResponse> {
   const response = await fetch(`${BASE_URL}/Auth/register`, {
     method: "POST",
@@ -87,19 +100,24 @@ export async function registerService(
     }),
   });
 
-  const json = await response.json().catch(() => ({}));
+  const json = await safeJson(response);
 
   if (!response.ok) {
-    throw new Error(json?.message || "Registration failed. Please try again.");
+    throw new Error(
+      json?.message ||
+        t?.("auth.errors.registerFailed") ||
+        "Registration failed."
+    );
   }
 
   return json;
 }
 
-// ─── Reset Password ───────────────────────────────────────────────────────────
+// ─── Reset Password Service ────────────────────────────────
 export async function resetPasswordService(
   token: string,
-  password: string
+  password: string,
+  t?: any
 ): Promise<ResetPasswordResponse> {
   const response = await fetch(`${BASE_URL}/Auth/reset-password`, {
     method: "POST",
@@ -107,10 +125,14 @@ export async function resetPasswordService(
     body: JSON.stringify({ token, password }),
   });
 
-  const json = await response.json().catch(() => ({}));
+  const json = await safeJson(response);
 
   if (!response.ok) {
-    throw new Error(json?.message || "Failed to reset password. Please try again.");
+    throw new Error(
+      json?.message ||
+        t?.("auth.errors.resetPasswordFailed") ||
+        "Failed to reset password."
+    );
   }
 
   return json;

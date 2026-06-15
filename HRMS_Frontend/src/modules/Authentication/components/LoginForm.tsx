@@ -3,8 +3,8 @@ import { FaApple, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useLoginForm } from "../hooks/useLogin";
 import { FieldStatus } from "../types/auth.types";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-// ─── Input Class Helper ───────────────────────────────────────────────────────
 function getInputClass(status: FieldStatus): string {
   const base =
     "w-full border-2 rounded-lg px-4 py-3 outline-none transition-all duration-200 text-sm";
@@ -15,27 +15,15 @@ function getInputClass(status: FieldStatus): string {
   return `${base} border-gray-200 bg-gray-50 focus:border-[#07122D] focus:ring-2 focus:ring-[#07122D]/10 focus:bg-white`;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export default function LoginForm() {
+  const { t } = useTranslation("authentication");
   const {
-    values,
-    errors,
-    touched,
-    loading,
-    showPassword,
-    apiError,
-    emailStatus,
-    passwordStatus,
-    passwordStrength,
-    handleEmailChange,
-    handleEmailBlur,
-    handlePasswordChange,
-    handlePasswordBlur,
-    handleRememberChange,
-    toggleShowPassword,
-    handleForgotPassword,
-    handleSubmit,
-  } = useLoginForm();
+    values, errors, touched, loading, showPassword, apiError,
+    emailStatus, passwordStatus, passwordStrength,
+    handleEmailChange, handleEmailBlur, handlePasswordChange,
+    handlePasswordBlur, handleRememberChange, toggleShowPassword,
+    handleForgotPassword, handleSubmit,
+  } = useLoginForm(t);
 
   return (
     <form onSubmit={handleSubmit} noValidate>
@@ -44,21 +32,21 @@ export default function LoginForm() {
         {/* ── API Error ── */}
         {apiError && (
           <div className="bg-red-50 border border-red-300 text-red-600 text-sm rounded-lg px-4 py-3">
-            ⚠️ {apiError}
+            {t("login.errors.apiErrorPrefix")} {apiError}
           </div>
         )}
 
         {/* ── Email ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Email Address <span className="text-red-500">*</span>
+            {t("login.form.email.label")} <span className="text-red-500">{t("login.form.email.required")}</span>
           </label>
           <input
             type="email"
             value={values.email}
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
-            placeholder="Enter your registered email"
+            placeholder={t("login.form.email.placeholder")}
             autoComplete="email"
             className={getInputClass(emailStatus)}
           />
@@ -72,7 +60,7 @@ export default function LoginForm() {
         {/* ── Password ── */}
         <div>
           <label className="font-semibold block mb-2 text-sm text-[#07122D]">
-            Password <span className="text-red-500">*</span>
+            {t("login.form.password.label")} <span className="text-red-500">{t("login.form.email.required")}</span>
           </label>
           <div className="relative">
             <input
@@ -80,7 +68,7 @@ export default function LoginForm() {
               value={values.password}
               onChange={handlePasswordChange}
               onBlur={handlePasswordBlur}
-              placeholder="Enter your password"
+              placeholder={t("login.form.password.placeholder")}
               autoComplete="current-password"
               className={`${getInputClass(passwordStatus)} pr-12`}
             />
@@ -88,7 +76,7 @@ export default function LoginForm() {
               type="button"
               onClick={toggleShowPassword}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? t("login.accessibility.hidePassword") : t("login.accessibility.showPassword")}
             >
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </button>
@@ -100,17 +88,11 @@ export default function LoginForm() {
               <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-300"
-                  style={{
-                    width: passwordStrength.width,
-                    backgroundColor: passwordStrength.color,
-                  }}
+                  style={{ width: passwordStrength.width, backgroundColor: passwordStrength.color }}
                 />
               </div>
-              <p
-                className="text-xs mt-1 font-semibold"
-                style={{ color: passwordStrength.color }}
-              >
-                Strength: {passwordStrength.label}
+              <p className="text-xs mt-1 font-semibold" style={{ color: passwordStrength.color }}>
+                {t("login.form.password.strength")}: {passwordStrength.label}
               </p>
             </div>
           )}
@@ -131,62 +113,45 @@ export default function LoginForm() {
               onChange={handleRememberChange}
               className="accent-[#07122D] w-4 h-4"
             />
-            Remember Me
+            {t("login.form.rememberMe")}
           </label>
-          <Link
-              to="/forgot-password"
-               className="font-semibold text-[#07122D] hover:underline transition-all"
-             >
-             Forgot Password?
-            </Link>
+          <Link to="/forgot-password" className="font-semibold text-[#07122D] hover:underline transition-all">
+            {t("login.form.forgotPassword")}
+          </Link>
         </div>
 
         {/* ── Submit ── */}
         <button
           type="submit"
           disabled={loading}
-          className="
-            w-full bg-[#07122D] text-white
-            rounded-lg py-3 font-bold text-sm
-            hover:bg-[#0f1f4a] active:scale-[0.99]
-            disabled:opacity-50 disabled:cursor-not-allowed
-            transition-all duration-200 tracking-wide
-          "
+          className="w-full bg-[#07122D] text-white rounded-lg py-3 font-bold text-sm hover:bg-[#0f1f4a] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 tracking-wide"
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading ? t("login.form.submit.loading") : t("login.form.submit.login")}
         </button>
       </div>
 
       {/* ── Divider ── */}
       <div className="flex items-center gap-4 my-6">
         <div className="flex-1 border-t border-gray-200" />
-        <span className="text-gray-400 text-sm">Or log in with</span>
+        <span className="text-gray-400 text-sm">{t("login.divider")}</span>
         <div className="flex-1 border-t border-gray-200" />
       </div>
 
       {/* ── Social Buttons ── */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <button
-          type="button"
-          className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all"
-        >
-          <FcGoogle size={20} />
-          Google
+        <button type="button" className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all">
+          <FcGoogle size={20} /> {t("login.social.google")}
         </button>
-        <button
-          type="button"
-          className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all"
-        >
-          <FaApple size={20} />
-          Apple
+        <button type="button" className="border-2 border-gray-200 rounded-lg py-3 flex items-center justify-center gap-2 font-semibold text-sm hover:border-[#07122D] hover:bg-gray-50 transition-all">
+          <FaApple size={20} /> {t("login.social.apple")}
         </button>
       </div>
 
       {/* ── Sign Up ── */}
       <p className="text-center text-gray-500 text-sm">
-        Don't have account?{" "}
+        {t("login.footer.noAccount")}{" "}
         <Link to="/register" className="font-bold text-[#07122D] hover:underline">
-          Create Account
+          {t("login.footer.createAccount")}
         </Link>
       </p>
     </form>

@@ -156,6 +156,333 @@
     }
   },
 
+  "emergencyContact": {
+  "modal": {
+    "title": "إضافة جهة اتصال للطوارئ",
+    "description": "إضافة جهة اتصال طوارئ جديدة لموظف",
+    "addButton": "إضافة جهة الاتصال"
+  },
+  "sections": {
+    "employeeInfo": "بيانات الموظف",
+    "contactInfo": "بيانات جهة الاتصال للطوارئ"
+  },
+  "fields": {
+    "employeeId": "رقم الموظف *",
+    "employeeName": "اسم الموظف *",
+    "primaryPhone": "رقم الهاتف الرئيسي",
+    "alternatePhone": "رقم هاتف بديل (اختياري)",
+    "email": "البريد الإلكتروني",
+    "notes": "ملاحظات (اختياري)"
+  },
+  "placeholders": {
+    "employeeId": "مثال: EMP-1024",
+    "employeeName": "مثال: أحمد حسن",
+    "selectDepartment": "اختر",
+    "contactName": "مثال: يوسف مسعود",
+    "primaryPhone": "مثال: +971 4 123 4567",
+    "alternatePhone": "مثال: +971 4 123 4567",
+    "email": "مثال: contact@email.com",
+    "address": "فيلا 42، حي الوصل، دبي، الإمارات",
+    "notes": "أي معلومات إضافية..."
+  }
+},
+
+"qualification": {
+  "modal": {
+    "title": "إضافة مؤهل",
+    "description": "إضافة سجل مؤهل جديد لموظف.",
+    "addButton": "إضافة مؤهل"
+  },
+  "sections": {
+    "type": "نوع المؤهل",
+    "details": "تفاصيل المؤهل"
+  },
+  "fields": {
+    "employeeId": "رقم الموظف *",
+    "employeeName": "اسم الموظف *",
+    "type": "النوع *",
+    "title": "عنوان المؤهل *",
+    "institution": "المؤسسة التعليمية *",
+    "fieldOfStudy": "التخصص *",
+    "graduationYear": "سنة التخرج *",
+    "gpa": "الدرجة / المعدل التراكمي (اختياري)",
+    "verificationStatus": "حالة التحقق *"
+  },
+  "types": {
+    "degree": "شهادة أكاديمية",
+    "certification": "شهادة مهنية",
+    "training": "تدريب"
+  },
+  "placeholders": {
+    "selectType": "اختر النوع",
+    "title": "مثال: بكالوريوس علوم الحاسب",
+    "institution": "مثال: جامعة الإمارات",
+    "fieldOfStudy": "مثال: علوم الحاسب",
+    "graduationYear": "مثال: 2012"
+  },
+  "upload": {
+    "dragAndDrop": "اسحب وأفلت الملف هنا",
+    "orBrowse": "أو انقر للاستعراض",
+    "chooseFile": "اختر ملفاً",
+    "supportedFormats": "الصيغ المدعومة: PDF، DOC، DOCX، JPG، PNG (الحد الأقصى 10MB)"
+  }
+},
+
+"attendance": {
+  "overview": "نظرة عامة على الحضور",
+  "status": {
+    "present": "حاضر",
+    "late": "متأخر",
+    "absent": "غائب",
+    "onLeave": "في إجازة"
+  },
+  "weekDays": {
+    "mon": "الإثنين",
+    "tue": "الثلاثاء",
+    "wed": "الأربعاء",
+    "thu": "الخميس",
+    "fri": "الجمعة",
+    "sat": "السبت",
+    "sun": "الأحد"
+  }
+},
+
+"contract": {
+  "modal": {
+    "title": "تعديل العقد",
+    "description": "تحديث بيانات العقد لـ {{name}}"
+  },
+  "sections": {
+    "contractInfo": "بيانات العقد",
+    "employmentInfo": "بيانات التوظيف"
+  },
+  "fields": {
+    "status": "الحالة",
+    "startDate": "تاريخ البداية",
+    "endDate": "تاريخ الانتهاء",
+    "duration": "المدة",
+    "salary": "الراتب (درهم)",
+    "signedDate": "تاريخ التوقيع",
+    "renewalDate": "تاريخ التجديد"
+  },
+  "types": {
+    "permanent": "دائم",
+    "temporary": "مؤقت",
+    "freelance": "مستقل"
+  },
+  "statuses": {
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "expired": "منتهي"
+  },
+  "departments": {
+    "engineering": "الهندسة",
+    "it": "تقنية المعلومات",
+    "hr": "الموارد البشرية",
+    "finance": "المالية"
+  },
+  "view": {
+    "title": "تفاصيل العقد",
+    "editButton": "تعديل العقد"
+  }
+},
+
+"documents": {
+  "title": "مستندات الموظف",
+  "uploadButton": "رفع مستند",
+  "uploaded": "تاريخ الرفع: {{date}}",
+  "expires": "تاريخ الانتهاء: {{date}}",
+  "noExpiry": "غير محدد",
+  "actions": {
+    "download": "تحميل",
+    "preview": "معاينة"
+  },
+  "types": {
+    "nationalId": "الرقم القومي",
+    "educationalCertificates": "الشهادات التعليمية",
+    "medicalCertificate": "الشهادة الطبية",
+    "bankDetails": "البيانات البنكية",
+    "employmentContract": "عقد العمل"
+  }
+},
+
+"performanceTab": {
+    "title": "نظرة عامة على الأداء",
+    "initiateReview": "بدء مراجعة جديدة",
+    "currentMonthBreakdown": "تفاصيل الشهر الحالي",
+    "latestReview": "آخر مراجعة للأداء",
+    "exceedsExpectations": "يتجاوز التوقعات",
+    "kpiLabel": "مؤشرات الأداء الرئيسية",
+    "kpis": {
+      "codeQuality": "جودة الكود",
+      "deliveryOnTime": "الالتزام بالمواعيد",
+      "teamCollaboration": "العمل الجماعي",
+      "innovation": "الابتكار"
+    },
+    "trend": {
+      "title": "مسار الأداء",
+      "rating": "التقييم"
+    },
+    "managerComments": {
+      "title": "تعليقات المدير",
+      "role": "مدير الهندسة",
+      "body": "أظهر أحمد باستمرار مهارات تقنية استثنائية وصفات قيادية متميزة. كانت مساهماته في مشاريع الفريق الأخيرة لا تقدر بثمن. يقوم بتدريب المطورين المبتدئين بفعالية ويحافظ على معايير عالية لجودة الكود. نتطلع إلى رؤية نموه المستمر في الربع القادم."
+    }
+  },
+
+"documentUpload": {
+  "modal": {
+    "title": "رفع مستند",
+    "description": "إضافة مستند جديد للموظف",
+    "uploadButton": "رفع المستند"
+  },
+  "sections": {
+    "documentDetails": "تفاصيل المستند",
+    "uploadFile": "رفع الملف"
+  },
+  "fields": {
+    "documentType": "نوع المستند *",
+    "expiryDate": "تاريخ الانتهاء *",
+    "expiryHint": "هذا المستند له تاريخ انتهاء"
+  },
+  "placeholders": {
+    "expiryDate": "مثال: مارس 2027"
+  },
+  "infoNote": "تأكد من أن جميع المستندات المرفوعة واضحة ومقروءة وتحتوي على معلومات دقيقة. سيتم التحقق من المستندات من قِبل فريق الموارد البشرية."
+},
+
+"documentView": {
+  "modal": {
+    "title": "مستند الموظف",
+    "description": "تفاصيل مستند {{name}}"
+  },
+  "actions": {
+    "delete": "حذف",
+    "edit": "تعديل المستند"
+  }
+},
+
+
+
+"emergencyContactsPage": {
+  "title": "جهات اتصال الطوارئ",
+  "description": "إدارة بيانات جهات اتصال الطوارئ للموظفين",
+  "addButton": "إضافة جهة اتصال",
+  "searchPlaceholder": "ابحث عن جهة اتصال",
+  "altPhone": "بديل: {{number}}",
+  "notesLabel": "ملاحظات:",
+  "filters": {
+    "allRelationships": "كل صلات القرابة",
+    "allDepartments": "كل الأقسام"
+  },
+  "relationships": {
+    "spouse": "زوج / زوجة",
+    "parent": "أحد الوالدين",
+    "sibling": "أخ / أخت",
+    "friend": "صديق"
+  }
+},
+
+"payrollTab": {
+    "currentMonthBreakdown": "تفاصيل الشهر الحالي",
+    "baseSalary": "الراتب الأساسي",
+    "allowances": "البدلات",
+    "deductions": "الاستقطاعات",
+    "netSalary": "صافي الراتب",
+    "payslipHistory": "سجل كشوف الراتب",
+    "gross": "الإجمالي",
+    "dedt": "الاستقطاع",
+    "net": "الصافي",
+    "download": "تحميل"
+  },
+
+"contractsPage": {
+  "title": "عقود الموظفين",
+  "description": "إدارة عقود العمل وتتبع تواريخ التجديد",
+  "exportButton": "تصدير التقرير",
+  "searchPlaceholder": "ابحث عن عقد",
+  "filters": {
+    "allTypes": "كل الأنواع",
+    "allStatuses": "كل الحالات",
+    "allDepartments": "كل الأقسام"
+  },
+  "table": {
+    "contractId": "رقم العقد",
+    "employee": "الموظف",
+    "joinDate": "تاريخ الالتحاق"
+  }
+},
+
+
+"qualificationsPage": {
+    "title": "مؤهلات الموظفين",
+    "description": "تتبع المؤهلات التعليمية والشهادات والتدريب",
+    "addButton": "+ إضافة مؤهل",
+    "searchPlaceholder": "بحث في المؤهلات",
+    "filters": {
+      "allTypes": "جميع الأنواع",
+      "allStatuses": "جميع الحالات",
+      "allLevels": "جميع المستويات"
+    },
+    "statuses": {
+      "verified": "موثّق",
+      "pending": "قيد المراجعة",
+      "rejected": "مرفوض"
+    },
+    "levels": {
+      "bachelor": "بكالوريوس",
+      "master": "ماجستير",
+      "phd": "دكتوراه"
+    },
+    "actions": {
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "graduationYear": "سنة التخرج",
+    "levelLabel": "المستوى",
+    "fieldLabel": "التخصص",
+    "gradeLabel": "التقدير"
+  },
+
+"documentsPage": {
+  "title": "مستندات الموظفين",
+  "description": "إدارة وتتبع جميع مستندات الموظفين",
+  "searchPlaceholder": "ابحث عن مستند",
+  "filters": {
+    "allTypes": "كل الأنواع"
+  },
+  "table": {
+    "type": "النوع"
+  }
+},
+
+"employmentTab": {
+    "currentEmployment": "التوظيف الحالي",
+    "startDate": "تاريخ البداية",
+    "contractEndDate": "تاريخ انتهاء العقد",
+    "employmentHistory": "سجل التوظيف"
+  },
+
+
+"employeeProfile": {
+  "fallbackName": "موظف",
+  "idLabel": "الرقم: {{id}}",
+  "back": "العودة",
+  "editProfile": "تعديل الملف الشخصي",
+  "tabs": {
+    "personal": "البيانات الشخصية",
+    "employment": "الوظيفة",
+    "documents": "المستندات",
+    "attendance": "الحضور",
+    "payroll": "الرواتب",
+    "performance": "الأداء"
+  }
+},
+
+"employeeFormFields": {
+  "salaryLabel": "الراتب الأساسي (درهم)"
+},
+
   "enums": {
     "gender": {
       "male": "ذكر",
