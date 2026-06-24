@@ -195,7 +195,7 @@ export default function EmployeesPage({
                     </td>
 
                     <td className="px-4 py-3 text-sm text-gray-600">
-                      {emp.positionTitle?.trim() ? emp.positionTitle : "—"}
+                      {emp.positionName?.trim() ? emp.positionName : "—"}
                     </td>
 
                     <td className="px-4 py-3 text-sm text-gray-600">

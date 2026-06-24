@@ -61,7 +61,7 @@ export function buildCreatePayload(form: EmployeeFormState): CreateEmployeePaylo
     departmentId: form.departmentId,
     positionId: form.positionId,
     branchId: form.branchId,
-    managerId: form.managerId || null,
+    managerId: form.managerId || "",
     basicSalary: Number(form.basicSalary) || 0,
   };
 }
@@ -89,7 +89,7 @@ export function buildUpdatePayload(
     departmentId: form.departmentId,
     positionId: form.positionId,
     branchId: form.branchId,
-    managerId: form.managerId || null,
+    managerId: form.managerId || "",
     basicSalary: Number(form.basicSalary) || 0,
   };
 }

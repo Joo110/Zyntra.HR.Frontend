@@ -72,11 +72,11 @@ export default function ContractViewModal({ contract, onClose, onEdit }: Props) 
               />
               <Field
                 label={`${t("contract.fields.signedDate")} *`}
-                value={contract.signedDate}
+                value={contract.joinDate}
               />
               <Field
                 label={t("contract.fields.renewalDate")}
-                value={contract.renewalDate}
+                value={contract.joinDate}
               />
             </div>
           </div>

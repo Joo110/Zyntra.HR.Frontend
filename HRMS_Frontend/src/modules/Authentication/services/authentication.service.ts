@@ -10,7 +10,7 @@ import {
 
 // ─── Base URL ───────────────────────────────────────────────
 const BASE_URL =
-  import.meta.env.VITE_API_URL ?? "https://localhost:57334/api/v1";
+  import.meta.env.VITE_API_URL ?? "https://hrsysapi.runasp.net/api/v1";
 
 // ─── Helper: Safe JSON parsing ──────────────────────────────
 async function safeJson(response: Response) {
@@ -35,7 +35,7 @@ export async function loginService(
 
   if (!response.ok) {
     throw new Error(
-      json?.message || t?.("auth.errors.loginFailed") || "Login failed."
+       "Login failed."
     );
   }
 
@@ -77,7 +77,6 @@ export async function forgotPasswordService(
   if (!response.ok) {
     throw new Error(
       json?.message ||
-        t?.("auth.errors.forgotPasswordFailed") ||
         "Failed to send reset email."
     );
   }
@@ -105,7 +104,6 @@ export async function registerService(
   if (!response.ok) {
     throw new Error(
       json?.message ||
-        t?.("auth.errors.registerFailed") ||
         "Registration failed."
     );
   }
@@ -130,7 +128,6 @@ export async function resetPasswordService(
   if (!response.ok) {
     throw new Error(
       json?.message ||
-        t?.("auth.errors.resetPasswordFailed") ||
         "Failed to reset password."
     );
   }

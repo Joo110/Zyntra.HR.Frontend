@@ -7,7 +7,7 @@ import {
 } from "../types/employee";
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? "https://localhost:57334";
-const API = `${BASE_URL}/api/v1/Employees`;
+const API = `${BASE_URL}/Employees`;
 
 type ApiEnvelope<T> = {
   success: boolean;

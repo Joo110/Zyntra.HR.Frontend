@@ -12,15 +12,22 @@ export interface Contract {
   salary: string;
   joinDate: string;
   status: "active" | "inactive" | "expired";
+  startDate : string;
+  duration : string;
+  endDate : string;
+
   employeeName: string;
 }
 
-const mockContracts: Contract[] = Array.from({ length: 8 }, () => ({
-  id: "CNT-2024-001",
+const mockContracts: Contract[] = Array.from({ length: 8 }, (_, index) => ({
+  id: `CNT-2024-00${index + 1}`,
   employee: "Mohamed Morsy",
   employeeName: "Mohamed Morsy",
   department: "it",
   type: "permanent",
+  startDate: "24/5/2026",
+  duration: "12 months",
+  endDate: "24/5/2027",
   salary: "AED 28,000",
   joinDate: "24/5/2026",
   status: "active",

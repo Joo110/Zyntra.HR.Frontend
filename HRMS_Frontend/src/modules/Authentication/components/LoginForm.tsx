@@ -19,7 +19,7 @@ export default function LoginForm() {
   const { t } = useTranslation("authentication");
   const {
     values, errors, touched, loading, showPassword, apiError,
-    emailStatus, passwordStatus, passwordStrength,
+    emailStatus, passwordStatus,
     handleEmailChange, handleEmailBlur, handlePasswordChange,
     handlePasswordBlur, handleRememberChange, toggleShowPassword,
     handleForgotPassword, handleSubmit,
@@ -81,21 +81,6 @@ export default function LoginForm() {
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </button>
           </div>
-
-          {/* Password Strength Bar */}
-          {values.password.length > 0 && passwordStrength && (
-            <div className="mt-2">
-              <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all duration-300"
-                  style={{ width: passwordStrength.width, backgroundColor: passwordStrength.color }}
-                />
-              </div>
-              <p className="text-xs mt-1 font-semibold" style={{ color: passwordStrength.color }}>
-                {t("login.form.password.strength")}: {passwordStrength.label}
-              </p>
-            </div>
-          )}
 
           {touched.password && errors.password && (
             <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
